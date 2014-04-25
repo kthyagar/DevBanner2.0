@@ -14,11 +14,11 @@
 
 
 - (void)hide{
-
+    
     countstate=2;
     someScrollView1.hidden=YES;
     [self userActionOff];
-
+    
     [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     
 }
@@ -29,11 +29,11 @@
 }
 - (void)userActionOff{
     //Do your own Custom Animations here for Remove
-
+    
 }
 
 - (void)show{
-
+    
     if(countstate==1){
         NSLog(@"Ad Already Init");
         
@@ -44,7 +44,7 @@
         someScrollView1.hidden=NO;
         [self bannerArrange];
         [self userActionOn];
-
+        
         
         return;
         
@@ -53,7 +53,7 @@
         someScrollView1.hidden=NO;
         [self bannerArrange];
         [self userActionOn];
-
+        
         
         
         [self swap1];
@@ -65,34 +65,34 @@
     countstate=1;
     
     
-//    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-//    if (orientation == UIInterfaceOrientationPortrait) {
-//        NSLog(@"PORT");
-//        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-//            BannerHeight=50;
-//            
-//            //32   This is Landscape
-//        }else{
-//            BannerHeight=66;
-//            //90 Admob
-//        }
-//         [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-//        
-//    }else{
-//        NSLog(@"LAND");
-//        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-//            BannerHeight=32;
-//            
-//            //32   This is Landscape
-//        }else{
-//            BannerHeight=66;
-//            //90 Admob
-//        }
-//       
-//        [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width)];
-//       
-//        
-//    }
+    //    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    //    if (orientation == UIInterfaceOrientationPortrait) {
+    //        NSLog(@"PORT");
+    //        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    //            BannerHeight=50;
+    //
+    //            //32   This is Landscape
+    //        }else{
+    //            BannerHeight=66;
+    //            //90 Admob
+    //        }
+    //         [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    //
+    //    }else{
+    //        NSLog(@"LAND");
+    //        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    //            BannerHeight=32;
+    //
+    //            //32   This is Landscape
+    //        }else{
+    //            BannerHeight=66;
+    //            //90 Admob
+    //        }
+    //
+    //        [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width)];
+    //
+    //
+    //    }
     
     
     
@@ -149,8 +149,8 @@
         label2a.text=string2;
         label3a.text=string3;
         
-
-     
+        
+        
         [label1a setFont:[UIFont systemFontOfSize:11]];
         [label2a setFont:[UIFont systemFontOfSize:8]];
         [label3a setFont:[UIFont systemFontOfSize:8]];
@@ -160,7 +160,7 @@
         numObjectsP = [jsonarray count]-1;
         
         Countdelay = 10;
-
+        
         [self showAd];
     }
     
@@ -259,7 +259,7 @@
             //[self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
             [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
         }
-            someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
         
         ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
         [ImageView1 setImage:img1L];
@@ -321,9 +321,9 @@
     
     
     
-        
+    
     dispatch_async(kBgQueue, ^{
-
+        
         
         
         NSString *stringBuilder = @"https://itunes.apple.com/lookup?id=";
@@ -331,13 +331,13 @@
         NSLocale *locale = [NSLocale currentLocale];
         stringBuilder = [stringBuilder stringByAppendingString:@"&entity=software&country="];
         //stringBuilder = [stringBuilder stringByAppendingString:@"&country="];
-
+        
         stringBuilder = [stringBuilder stringByAppendingString:[locale objectForKey: NSLocaleCountryCode]];
         NSLog(@"%@",stringBuilder);
         
-
+        
         NSURL* kjsonURL = [NSURL URLWithString:stringBuilder];
-            
+        
         NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
         
         [self performSelectorOnMainThread:@selector(fetchedData2:) withObject:data2 waitUntilDone:YES];
@@ -355,7 +355,7 @@
     
     if(responseData==nil){
         NSLog(@"JSON Can't Find Data");
-       
+        
         return;
         
     }else{
@@ -367,7 +367,7 @@
                                                                error:&error];
         
         jsonarray = [json objectForKey:@"results"];
-
+        
         NSString* string2= [jsonarray[0] objectForKey:@"artistName"];
         NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
         
@@ -382,7 +382,7 @@
         label1a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,0-BannerHeight*.25, 180, BannerHeight)];
         label2a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
         label3a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,0+BannerHeight*.22, 180, BannerHeight)];
-
+        
         label1a.text=string1;
         label2a.text=string2;
         label3a.text=string3;
@@ -392,14 +392,14 @@
         [label3a setFont:[UIFont systemFontOfSize:8]];
         
         NSLog(@"%@",_AppID);
-     //   ⭐🌟
-
-
+        //   ⭐🌟
+        
+        
         
         
         
         NSLog(@"%@",jsonarray);//
-       // return;
+        // return;
         
         
         
@@ -411,7 +411,7 @@
             return;
             
         }else{
-       
+            
             
             numObjectsP = [jsonarray count]-1;
             
@@ -419,16 +419,16 @@
             
             NSLog(@"This is the Number %lu",(unsigned long)numObjectsP);
             
-          
+            
             Countdelay = 10;
-
+            
             
             
             NSLog(@"JSON GET SUCCESS");
             defaults = [NSUserDefaults standardUserDefaults];
-
+            
             [defaults setValue:jsonarray forKey:@"DevBannerJSON"];
-
+            
             [defaults synchronize];
             
             
@@ -453,9 +453,6 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    
-
-    
 	if(numObjectsP==0){
         return;
     }
@@ -471,10 +468,8 @@
     int i = 1;
     int j = 1;
     NSMutableArray *images = [NSMutableArray array];
-    
     while(i <= Countmax)
     {
-        
         NSString *storelink = [NSString stringWithFormat:@"StoreLink%d", j];
         NSString *filename = [NSString stringWithFormat:@"/Ad_%dP.png", j];
         NSString* string= [jsonarray[i] objectForKey:@"kind"];
@@ -488,240 +483,43 @@
             NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
-
         
-        if([[NSUserDefaults standardUserDefaults] valueForKey:storelink]==NULL){
-            
-            // mac-software
-            
-            
-            
+        
+        if([[NSUserDefaults standardUserDefaults] valueForKey:storelink]==NULL)
+        {
             NSString* stringBuilder1= [jsonarray[i] objectForKey:@"artworkUrl512"];
-
+            
             NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
             NSString* urlBuilder2= [[jsonarray[i] objectForKey:@"trackId"] stringValue];
             NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
             urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
             urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
-                
-                
-                
-                
+            
             NSData *imageData1P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
-                
-                
+            
+            
             NSLog(@"Saving Image %d",i);
             NSString *imagePath1P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:filename];
             [imageData1P writeToFile:imagePath1P atomically:YES];
             [defaults setValue:urlBuilder1 forKey:storelink];//
-        
+            
             [defaults synchronize];
         }
         
         NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
-
+        
         [images addObject:[UIImage imageWithContentsOfFile:getImagePath]];
-        //= [UIImage imageWithContentsOfFile:getImagePath5P];
         
         i++;
         j++;
     }
-//    if(numObjectsP>=1){
-//        if(Countnetwork==1){
-//            
-//            if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink1"]==NULL){
-//                
-//                NSString* stringBuilder1= [jsonarray[1] objectForKey:@"artworkUrl512"];
-//                
-//                
-//                NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
-//                NSString* urlBuilder2= [[jsonarray[1] objectForKey:@"trackId"] stringValue];
-//                NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-//                urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
-//                urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
-//                
-//                
-//                
-//                
-//                NSData *imageData1P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
-//                
-//                
-//                NSLog(@"Saving Image 1P");
-//                NSString *imagePath1P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/Ad_1P.png"];
-//                [imageData1P writeToFile:imagePath1P atomically:YES];
-//                [defaults setValue:urlBuilder1 forKey:@"StoreLink1"];
-//                
-//                [defaults synchronize];
-//            }else{
-//                NSLog(@"Image 1 Found");
-//            }
-//        }
-//        NSString *getImagePath1P = [documentsDirectory stringByAppendingPathComponent:@"/Ad_Image_1P.png"];
-//        
-//        img1P = [UIImage imageWithContentsOfFile:getImagePath1P];
-//    }
-//    if(numObjectsP>=2){
-//        if(Countnetwork==1){
-//        
-//            if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink2"]==NULL){
-//                
-//                NSString* stringBuilder1= [jsonarray[2] objectForKey:@"artworkUrl512"];
-//                
-//                
-//                NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
-//                NSString* urlBuilder2= [[jsonarray[2] objectForKey:@"trackId"] stringValue];
-//                NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-//                urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
-//                urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
-//                
-//                
-//                
-//                
-//                NSData *imageData2P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
-//                
-//                
-//                NSLog(@"Saving Image 2P");
-//                NSString *imagePath2P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/Ad_2P.png"];
-//                [imageData2P writeToFile:imagePath2P atomically:YES];
-//                [defaults setValue:urlBuilder1 forKey:@"StoreLink2"];
-//                
-//                [defaults synchronize];
-//            }else{
-//                NSLog(@"Image 2 Found");
-//            }
-//        }
-//        NSString *getImagePath2P = [documentsDirectory stringByAppendingPathComponent:@"/Ad_2P.png"];
-//        
-//        img2P = [UIImage imageWithContentsOfFile:getImagePath2P];
-//    }
-//    if(numObjectsP>=3){
-//        if(Countnetwork==1){
-//            if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink3"]==NULL){
-//
-//            NSString* stringBuilder1= [jsonarray[3] objectForKey:@"artworkUrl512"];
-//
-//            
-//            NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
-//            NSString* urlBuilder2= [[jsonarray[3] objectForKey:@"trackId"] stringValue];
-//            NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-//            urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
-//            urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
-//
-//            
-//            
-//            
-//            NSData *imageData3P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
-//        
-//                
-//        NSLog(@"Saving Image 3P");
-//        NSString *imagePath3P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/Ad_3P.png"];
-//        [imageData3P writeToFile:imagePath3P atomically:YES];
-//                [defaults setValue:urlBuilder1 forKey:@"StoreLink3"];
-//                
-//                [defaults synchronize];
-//        }else{
-//            NSLog(@"Image 3 Found");
-//        }
-//        }
-//        NSString *getImagePath3P = [documentsDirectory stringByAppendingPathComponent:@"/Ad_3P.png"];
-//        
-//        img3P = [UIImage imageWithContentsOfFile:getImagePath3P];
-//    }
-//    if(numObjectsP>=4){
-//        if(Countnetwork==1){
-//            
-//            if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink4"]==NULL){
-//
-//                NSString* stringBuilder1= [jsonarray[4] objectForKey:@"artworkUrl512"];
-//
-//                NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
-//                NSString* urlBuilder2= [[jsonarray[4] objectForKey:@"trackId"] stringValue];
-//                
-//                NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-//                urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
-//                urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
-//            
-//            
-//            
-//            
-//                NSData *imageData4P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
-//                
-//
-//        NSLog(@"Saving Image 4P");
-//        NSString *imagePath4P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/Ad_4P.png"];
-//        [imageData4P writeToFile:imagePath4P atomically:YES];
-//                [defaults setValue:urlBuilder1 forKey:@"StoreLink4"];
-//                
-//                [defaults synchronize];
-//        }else{
-//            NSLog(@"Image 4 Found");
-//        }
-//        }
-//        NSString *getImagePath4P = [documentsDirectory stringByAppendingPathComponent:@"/Ad_4P.png"];
-//        
-//        img4P = [UIImage imageWithContentsOfFile:getImagePath4P];
-//    }
-//    if(numObjectsP>=5){
-//        if(Countnetwork==1){
-//            if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink5"]==NULL){
-//
-//            NSString* stringBuilder1= [jsonarray[5] objectForKey:@"artworkUrl512"];
-//
-//            NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
-//            NSString* urlBuilder2= [[jsonarray[5] objectForKey:@"trackId"] stringValue];
-//            NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-//            urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
-//            urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
-//            
-//            
-//            
-//            NSData *imageData5P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
-//                
-//        NSLog(@"Saving Image 5P");
-//        NSString *imagePath5P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/Ad_5P.png"];
-//        [imageData5P writeToFile:imagePath5P atomically:YES];
-//
-//                [defaults setValue:urlBuilder1 forKey:@"StoreLink5"];
-//                
-//                [defaults synchronize];
-//                
-//        }else{
-//            NSLog(@"Image 5 Found");
-//        }
-//        }
-//        NSString *getImagePath5P = [documentsDirectory stringByAppendingPathComponent:@"/Ad_5P.png"];
-//        
-//        img5P = [UIImage imageWithContentsOfFile:getImagePath5P];
-//    }
-    
-    
-    
-    
     
     if(numObjectsP!=0){
         if(Countnetwork==1){
             if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink"]==NULL){
-
-//            NSNumber* version1 = [[[[jsonarray objectAtIndex:0] objectForKey:@"settings"] objectAtIndex:0] objectForKey:@"version"];
-//            NSNumber* version2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"BannerV0"];
-//            
-//            if(version2==NULL){
-//                [defaults setValue:@0 forKey:@"BannerV0"];
-//                [defaults synchronize];
-//                version2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"BannerV0"];
-//                
-//            }
-//            
-//            NSLog(@"Last Version %@",version1);
-//            NSLog(@"This Version %@",version2);
-//            
-//            if ([version1 isEqualToNumber:version2]) {
-//                NSLog(@"Image 1 Same Version");
-//            }else{
-            
                 
                 NSData *imageData1 = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:@"PortraitURL"]]];
-               NSData *imageData2 = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:@"LandscapeURL"]]];
+                NSData *imageData2 = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:@"LandscapeURL"]]];
                 
                 NSString *imagePath1 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/Ad_Image_1.png"];
                 
@@ -730,16 +528,16 @@
                 [imageData1 writeToFile:imagePath1 atomically:YES];
                 [imageData2 writeToFile:imagePath2 atomically:YES];
                 
-//                
-//                [defaults setValue:imagePath2 forKey:@"StoreLinkx"];
+                //
+                //                [defaults setValue:imagePath2 forKey:@"StoreLinkx"];
                 [defaults setValue:imagePath1 forKey:@"StoreLink"];
-
+                
                 
                 [defaults synchronize];
-            
-        }else{
-            NSLog(@"Image Found");
-        }
+                
+            }else{
+                NSLog(@"Image Found");
+            }
         }
         
         NSString *getImagePath1 = [documentsDirectory stringByAppendingPathComponent:@"/Ad_Image_1.png"];
@@ -749,88 +547,9 @@
         img1L = [UIImage imageWithContentsOfFile:getImagePath2];
     }
     
-	
-    
-
-    
-        
-        
-        
-        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-        if (orientation == UIInterfaceOrientationPortrait) {
-            NSLog(@"UP");
-            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                BannerHeight=50;
-                
-                //32   This is Landscape
-            }else{
-                BannerHeight=66;
-                //90 Admob
-            }
-            
-            someButtonView1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView4 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView5 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            
-            ImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            [ImageView1 setImage:img1];
-            
-            someImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView4 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView5 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            
-            someButtonView1 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            someButtonView2 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            someButtonView3 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            someButtonView4 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            someButtonView5 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            
-            [someButtonView1 addTarget:self action:@selector(ad1) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView2 addTarget:self action:@selector(ad2) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView3 addTarget:self action:@selector(ad3) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView4 addTarget:self action:@selector(ad4) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView5 addTarget:self action:@selector(ad5) forControlEvents:UIControlEventTouchUpInside];
-            
-            someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            
-            
-            [someScrollView1 setBackgroundColor:[UIColor colorWithWhite:.2 alpha:.9]];
-            
-
-            [someScrollView1 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-            
-            NSUInteger numImg = [images count];
-            // for(UIImage *image in images){
-            if (numImg==0) {
-                return;
-            }else if(numImg==1) {
-                [someImageView1 setImage:images[0]];
-            }else if(numImg==2) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-            }else if(numImg==3) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-                [someImageView3 setImage:images[2]];
-            }else if(numImg==4) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-                [someImageView3 setImage:images[2]];
-                [someImageView4 setImage:images[3]];
-            }else if(numImg==5) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-                [someImageView3 setImage:images[2]];
-                [someImageView4 setImage:images[3]];
-                [someImageView5 setImage:images[4]];
-            }
-            
-        }else{
-            NSLog(@"DOWN");
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (orientation == UIInterfaceOrientationPortrait) {
+        NSLog(@"UP");
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             BannerHeight=50;
             
@@ -840,88 +559,149 @@
             //90 Admob
         }
         
-            
-            someButtonView1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView4 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            someButtonView5 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView4 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView5 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
-            ImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        ImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        [ImageView1 setImage:img1];
         
-            someImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView4 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            someImageView5 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
-            
-            someButtonView1 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            someButtonView2 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            someButtonView3 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            someButtonView4 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            someButtonView5 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        someImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView4 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView5 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
         
-            [someButtonView1 addTarget:self action:@selector(ad1) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView2 addTarget:self action:@selector(ad2) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView3 addTarget:self action:@selector(ad3) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView4 addTarget:self action:@selector(ad4) forControlEvents:UIControlEventTouchUpInside];
-            [someButtonView5 addTarget:self action:@selector(ad5) forControlEvents:UIControlEventTouchUpInside];
+        someButtonView1 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        someButtonView2 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        someButtonView3 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        someButtonView4 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        someButtonView5 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
         
-            someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            
-            [someScrollView1 setBackgroundColor:[UIColor colorWithWhite:.2 alpha:.9]];
-            
-            [someScrollView1 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+        [someButtonView1 addTarget:self action:@selector(ad1) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView2 addTarget:self action:@selector(ad2) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView3 addTarget:self action:@selector(ad3) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView4 addTarget:self action:@selector(ad4) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView5 addTarget:self action:@selector(ad5) forControlEvents:UIControlEventTouchUpInside];
         
-            [ImageView1 setImage:img1];
-            
-            NSUInteger numImg = [images count];
-           // for(UIImage *image in images){
-            if (numImg==0) {
-                return;
-            }else if(numImg==1) {
-                [someImageView1 setImage:images[0]];
-            }else if(numImg==2) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-            }else if(numImg==3) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-                [someImageView3 setImage:images[2]];
-            }else if(numImg==4) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-                [someImageView3 setImage:images[2]];
-                [someImageView4 setImage:images[3]];
-            }else if(numImg==5) {
-                [someImageView1 setImage:images[0]];
-                [someImageView2 setImage:images[1]];
-                [someImageView3 setImage:images[2]];
-                [someImageView4 setImage:images[3]];
-                [someImageView5 setImage:images[4]];
-            }
-            
-                
-            
+        someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        
+        
+        [someScrollView1 setBackgroundColor:[UIColor colorWithWhite:.2 alpha:.9]];
+        
+        
+        [someScrollView1 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+        
+        NSUInteger numImg = [images count];
+
+        if (numImg==0) {
+            return;
         }
-    
-    
-    
-        [self bannerArrange];
 
-        [self.view addSubview:someScrollView1];
-        [self userActionOn];
-        Countad=0;
-        Countmode=1;
-        [self swap1];
-    
-        [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleOrientationChangeNotification:) name: UIDeviceOrientationDidChangeNotification object: nil];
+        if(numImg==1) {
+            [someImageView1 setImage:images[0]];
+        }
+        
+        if(numImg==2) {
+            [someImageView2 setImage:images[1]];
+        }
+        
+        if(numImg==3) {
+            [someImageView3 setImage:images[2]];
+        }
+        
+        if(numImg==4) {
+            [someImageView4 setImage:images[3]];
+        }
+        
+        if(numImg==5) {
+            [someImageView5 setImage:images[4]];
+        }
+        
+    }else{
+        NSLog(@"DOWN");
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            BannerHeight=50;
+            
+            //32   This is Landscape
+        }else{
+            BannerHeight=66;
+            //90 Admob
+        }
+        
+        
+        someButtonView1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView4 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        someButtonView5 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        ImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        
+        someImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView4 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        someImageView5 = [[UIImageView alloc] initWithFrame:CGRectMake(2,4, BannerHeight-6, BannerHeight-6)];
+        
+        someButtonView1 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        someButtonView2 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        someButtonView3 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        someButtonView4 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        someButtonView5 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        
+        [someButtonView1 addTarget:self action:@selector(ad1) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView2 addTarget:self action:@selector(ad2) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView3 addTarget:self action:@selector(ad3) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView4 addTarget:self action:@selector(ad4) forControlEvents:UIControlEventTouchUpInside];
+        [someButtonView5 addTarget:self action:@selector(ad5) forControlEvents:UIControlEventTouchUpInside];
+        
+        someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        
+        [someScrollView1 setBackgroundColor:[UIColor colorWithWhite:.2 alpha:.9]];
+        
+        [someScrollView1 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+        
+        [ImageView1 setImage:img1];
+        
+        NSUInteger numImg = [images count];
+        if (numImg==0) {
+            return;
+        }
+        
+        if(numImg==1) {
+            [someImageView1 setImage:images[0]];
+        }
+        
+        if(numImg==2) {
+            [someImageView2 setImage:images[1]];
+        }
+        
+        if(numImg==3) {
+            [someImageView3 setImage:images[2]];
+        }
+        
+        if(numImg==4) {
+            [someImageView4 setImage:images[3]];
+        }
+        
+        if(numImg==5) {
+            [someImageView5 setImage:images[4]];
+        }
+    }
 
+    [self bannerArrange];
     
+    [self.view addSubview:someScrollView1];
+    [self userActionOn];
+    Countad=0;
+    Countmode=1;
+    [self swap1];
     
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleOrientationChangeNotification:) name: UIDeviceOrientationDidChangeNotification object: nil];
 }
-
-
 
 - (void)fetchedData:(NSData *)responseData {
     NSError* error;
@@ -930,7 +710,7 @@
         NSLog(@"JSON Can't Find Data");
         
         return;
-    
+        
     }else{
         NSLog(@"JSON Get");
         Countnetwork=1;
@@ -953,7 +733,7 @@
         
         NSString *stringBuilder = [jsonarray objectAtIndex:1];
         NSString *stringBuilder2 = [jsonarray objectAtIndex:1];
-
+        
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             stringBuilder = [stringBuilder stringByAppendingString:@"1"];
             stringBuilder2 = [stringBuilder2 stringByAppendingString:@"2"];
@@ -964,13 +744,13 @@
             
         }
         
-
+        
         NSLog(@"%@",stringBuilder);
         
         
-      //  NSURL* kjsonURL = [NSURL URLWithString:stringBuilder];
+        //  NSURL* kjsonURL = [NSURL URLWithString:stringBuilder];
         
-      //  NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
+        //  NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
         
         
         [defaults setValue:[jsonarray objectAtIndex:0] forKey:@"LinkURL"];
@@ -1001,31 +781,31 @@
             BannerHeight=66;
             //90 Admob
         }
-//        [someImageView1 setBackgroundImage:img1P forState:UIControlStateNormal];
-//        [someImageView2 setBackgroundImage:img2P forState:UIControlStateNormal];
-//        [someImageView3 setBackgroundImage:img3P forState:UIControlStateNormal];
-//        [someImageView4 setBackgroundImage:img4P forState:UIControlStateNormal];
-//        [someImageView5 setBackgroundImage:img5P forState:UIControlStateNormal];
- //       someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+        //        [someImageView1 setBackgroundImage:img1P forState:UIControlStateNormal];
+        //        [someImageView2 setBackgroundImage:img2P forState:UIControlStateNormal];
+        //        [someImageView3 setBackgroundImage:img3P forState:UIControlStateNormal];
+        //        [someImageView4 setBackgroundImage:img4P forState:UIControlStateNormal];
+        //        [someImageView5 setBackgroundImage:img5P forState:UIControlStateNormal];
+        //       someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
         
         
         if(countstate==1){
-        
-        //[self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-          [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-
+            
+            //[self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+            [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
+            
         }
         
         someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-
+        
         ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         [ImageView1 setImage:img1];
-//        someImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-//        someImageView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-//        someImageView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-//        someImageView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-//        someImageView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-
+        //        someImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+        //        someImageView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+        //        someImageView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+        //        someImageView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+        //        someImageView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+        
         
         someImageView1.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
         someImageView2.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
@@ -1038,7 +818,7 @@
         someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-
+        
         
         label1a.frame = CGRectMake(BannerHeight+8,-12, 180, BannerHeight);
         label2a.frame = CGRectMake(BannerHeight+15,0, 180, BannerHeight);
@@ -1048,8 +828,8 @@
         [label2a setFont:[UIFont systemFontOfSize:8]];
         [label3a setFont:[UIFont systemFontOfSize:8]];
         
-//        
-//        
+        //
+        //
         someImageView1.layer.cornerRadius = 11;
         someImageView1.clipsToBounds = YES;
         someImageView2.layer.cornerRadius = 11;
@@ -1071,31 +851,31 @@
             BannerHeight=66;
             //90 Admob
         }
-//        [someImageView1 setBackgroundImage:img1L forState:UIControlStateNormal];
-//        [someImageView2 setBackgroundImage:img2L forState:UIControlStateNormal];
-//        [someImageView3 setBackgroundImage:img3L forState:UIControlStateNormal];
-//        [someImageView4 setBackgroundImage:img4L forState:UIControlStateNormal];
-//        [someImageView5 setBackgroundImage:img5L forState:UIControlStateNormal];
-     //   someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-       
-        if(countstate==1){
-
+        //        [someImageView1 setBackgroundImage:img1L forState:UIControlStateNormal];
+        //        [someImageView2 setBackgroundImage:img2L forState:UIControlStateNormal];
+        //        [someImageView3 setBackgroundImage:img3L forState:UIControlStateNormal];
+        //        [someImageView4 setBackgroundImage:img4L forState:UIControlStateNormal];
+        //        [someImageView5 setBackgroundImage:img5L forState:UIControlStateNormal];
+        //   someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
         
-      //  [self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
+        if(countstate==1){
+            
+            
+            //  [self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
             [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-
-       
+            
+            
         }
-            someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-
+        someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        
         ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
         [ImageView1 setImage:img1L];
-//        someImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-//        someImageView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-//        someImageView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-//        someImageView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-//        someImageView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-
+        //        someImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        //        someImageView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        //        someImageView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        //        someImageView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        //        someImageView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
+        
         
         
         someImageView1.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
@@ -1113,7 +893,7 @@
         label1a.frame = CGRectMake(BannerHeight+18,-10, 180, BannerHeight);
         label2a.frame = CGRectMake(BannerHeight+25,1, 180, BannerHeight);
         label3a.frame = CGRectMake(BannerHeight+33,10, 180, BannerHeight);
-       
+        
         
         [label1a setFont:[UIFont systemFontOfSize:10]];
         [label2a setFont:[UIFont systemFontOfSize:8]];
@@ -1182,7 +962,6 @@
 
 -(void)swap1{
     
-    
     if(countstate==2){
         countstate=3;
         return;
@@ -1202,7 +981,7 @@
     // Banner Flips
     
     Countad++;
-
+    
     NSLog(@"Port it");
     if(numObjectsP<=1){
         Countad=0;
@@ -1228,7 +1007,7 @@
         }
     }
     
-
+    
     
     if(Countad==0){
         
@@ -1285,10 +1064,10 @@
         [label2a removeFromSuperview];
         [label3a removeFromSuperview];
         
-
+        
         [label1a setTextColor:[UIColor whiteColor]];
         [label2a setTextColor:[UIColor whiteColor]];
-
+        
         [label3a setTextColor:[UIColor whiteColor]];
         
         label1a.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
@@ -1297,13 +1076,13 @@
         label2a.shadowOffset = CGSizeMake(1,1);
         label3a.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
         label3a.shadowOffset = CGSizeMake(1,1);
-
+        
         [someScrollView1 addSubview:ImageView1];
         
         [someScrollView1 addSubview:label1a];
         [someScrollView1 addSubview:label2a];
         [someScrollView1 addSubview:label3a];
-
+        
         NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
         NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
         
@@ -1313,12 +1092,12 @@
         
         [someScrollView1 addSubview:someImageView1];
         [someScrollView1 addSubview:someButtonView1];
-
+        
         [UIView commitAnimations];
         
         
     }else if(Countad==2){
-
+        
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:1.5];
@@ -1359,14 +1138,14 @@
         [someImageView1 removeFromSuperview];
         [someScrollView1 addSubview:ImageView1];
         [someButtonView1 removeFromSuperview];
-
+        
         [label1a removeFromSuperview];
         [label2a removeFromSuperview];
         [label3a removeFromSuperview];
         
         [someScrollView1 addSubview:someImageView2];
         [someScrollView1 addSubview:someButtonView2];
-
+        
         [someScrollView1 addSubview:label1a];
         [someScrollView1 addSubview:label2a];
         [someScrollView1 addSubview:label3a];
@@ -1417,18 +1196,18 @@
         }
         [ImageView1 removeFromSuperview];
         [someButtonView2 removeFromSuperview];
-
+        
         [someImageView2 removeFromSuperview];
         [someScrollView1 addSubview:ImageView1];
         
         [label1a removeFromSuperview];
         [label2a removeFromSuperview];
         [label3a removeFromSuperview];
-
+        
         [someScrollView1 addSubview:someImageView3];
         [someScrollView1 addSubview:someButtonView3];
-
-
+        
+        
         [someScrollView1 addSubview:label1a];
         [someScrollView1 addSubview:label2a];
         [someScrollView1 addSubview:label3a];
@@ -1440,7 +1219,7 @@
         label3a.text=string3;
         
         [UIView commitAnimations];
-            
+        
     }else if(Countad==4){
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:1.5];
@@ -1471,25 +1250,25 @@
                 [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
                                        forView:someScrollView1
                                          cache:YES];
-               
+                
                 break;
             default:
                 break;
         }
         [ImageView1 removeFromSuperview];
         [someButtonView3 removeFromSuperview];
-
+        
         [someImageView3 removeFromSuperview];
         [someScrollView1 addSubview:ImageView1];
         
         [label1a removeFromSuperview];
         [label2a removeFromSuperview];
         [label3a removeFromSuperview];
-
+        
         [someScrollView1 addSubview:someImageView4];
         [someScrollView1 addSubview:someButtonView4];
-
-
+        
+        
         [someScrollView1 addSubview:label1a];
         [someScrollView1 addSubview:label2a];
         [someScrollView1 addSubview:label3a];
@@ -1538,20 +1317,20 @@
                 break;
         }
         [ImageView1 removeFromSuperview];
-
+        
         [someImageView4 removeFromSuperview];
         [someButtonView4 removeFromSuperview];
-
+        
         [someScrollView1 addSubview:ImageView1];
         
         [label1a removeFromSuperview];
         [label2a removeFromSuperview];
         [label3a removeFromSuperview];
-
+        
         [someScrollView1 addSubview:someImageView5];
         [someScrollView1 addSubview:someButtonView5];
-
-
+        
+        
         [someScrollView1 addSubview:label1a];
         [someScrollView1 addSubview:label2a];
         [someScrollView1 addSubview:label3a];
@@ -1570,12 +1349,12 @@
     
     
     //Add +1 to view count
-        [self performSelector:@selector(swap1) withObject:nil afterDelay:Countdelay];
+    [self performSelector:@selector(swap1) withObject:nil afterDelay:Countdelay];
     
     
 }
 
-    
+
 
 
 @end
