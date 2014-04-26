@@ -600,23 +600,23 @@
             return;
         }
 
-        if(numImg==1) {
+        if(numImg>=1) {
             [someImageView1 setImage:images[0]];
         }
         
-        if(numImg==2) {
+        if(numImg>=2) {
             [someImageView2 setImage:images[1]];
         }
         
-        if(numImg==3) {
+        if(numImg>=3) {
             [someImageView3 setImage:images[2]];
         }
         
-        if(numImg==4) {
+        if(numImg>=4) {
             [someImageView4 setImage:images[3]];
         }
         
-        if(numImg==5) {
+        if(numImg>=5) {
             [someImageView5 setImage:images[4]];
         }
         
@@ -671,23 +671,23 @@
             return;
         }
         
-        if(numImg==1) {
+        if(numImg>=1) {
             [someImageView1 setImage:images[0]];
         }
         
-        if(numImg==2) {
+        if(numImg>=2) {
             [someImageView2 setImage:images[1]];
         }
         
-        if(numImg==3) {
+        if(numImg>=3) {
             [someImageView3 setImage:images[2]];
         }
         
-        if(numImg==4) {
+        if(numImg>=4) {
             [someImageView4 setImage:images[3]];
         }
         
-        if(numImg==5) {
+        if(numImg>=5) {
             [someImageView5 setImage:images[4]];
         }
     }

@@ -145,14 +145,11 @@
     adbanner =[[DevBanner alloc]initWithNibName:nil bundle:nil];
     NSString *myString = jsontext.text;
     if([jsontext.text isEqual:@""]){
- //  adbanner.CampaignID = @"298910979";
+    adbanner.CampaignID = @"298910979";
         
         
-   adbanner.CampaignID = @"347400510";
+    // adbanner.CampaignID = @"347400510";
         
-        
-//
-//      adbanner.DevID = @"347400510";
         
 
     adbanner.AppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
