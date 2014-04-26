@@ -41,7 +41,7 @@
     NSUserDefaults *defaults;
     int Countfirstlaunch;
     int Countmode;
-    int countstate;
+    int countState;
     int Countdelay;
     int Countnetwork;
     int Countad;

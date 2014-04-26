@@ -15,7 +15,7 @@
 
 - (void)hide{
     
-    countstate=2;
+    countState=2;
     someScrollView1.hidden=YES;
     [self userActionOff];
     
@@ -27,19 +27,22 @@
 - (void)userActionOn{
     //Do your own Custom Animations here for Show
 }
+
+/// userActionOff
 - (void)userActionOff{
     //Do your own Custom Animations here for Remove
     
 }
 
+/// show
 - (void)show{
     
-    if(countstate==1){
+    if(countState==1){
         NSLog(@"Ad Already Init");
         
         return;
-    }else if(countstate==2){
-        countstate=1;
+    }else if(countState==2){
+        countState=1;
         NSLog(@"Ad Already Init");
         someScrollView1.hidden=NO;
         [self bannerArrange];
@@ -48,8 +51,8 @@
         
         return;
         
-    }else if(countstate==3){
-        countstate=1;
+    }else if(countState==3){
+        countState=1;
         someScrollView1.hidden=NO;
         [self bannerArrange];
         [self userActionOn];
@@ -62,50 +65,14 @@
         
     }
     
-    countstate=1;
-    
-    
-    //    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    //    if (orientation == UIInterfaceOrientationPortrait) {
-    //        NSLog(@"PORT");
-    //        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    //            BannerHeight=50;
-    //
-    //            //32   This is Landscape
-    //        }else{
-    //            BannerHeight=66;
-    //            //90 Admob
-    //        }
-    //         [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    //
-    //    }else{
-    //        NSLog(@"LAND");
-    //        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    //            BannerHeight=32;
-    //
-    //            //32   This is Landscape
-    //        }else{
-    //            BannerHeight=66;
-    //            //90 Admob
-    //        }
-    //
-    //        [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width)];
-    //
-    //
-    //    }
-    
-    
-    
+    countState=1;
+
     defaults = [NSUserDefaults standardUserDefaults];
     
     
-    if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink"]==NULL){
-        
-        
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"StoreLink"]==NULL)
+    {
         dispatch_async(kBgQueue, ^{
-            
-            
-            
             NSString *stringBuilder = @"http://www.myindieapp.com/adjazz_1.json";
             NSLog(@"%@",stringBuilder);
             
@@ -115,14 +82,10 @@
             NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
             
             [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data2 waitUntilDone:YES];
-            
-            
         });
-        
-        
-    }else{
-        
-        
+    }
+    else
+    {
         NSLog(@"JSON Reuse");
         
         Countnetwork=1;
@@ -148,9 +111,7 @@
         label1a.text=string1;
         label2a.text=string2;
         label3a.text=string3;
-        
-        
-        
+
         [label1a setFont:[UIFont systemFontOfSize:11]];
         [label2a setFont:[UIFont systemFontOfSize:8]];
         [label3a setFont:[UIFont systemFontOfSize:8]];
@@ -163,46 +124,36 @@
         
         [self showAd];
     }
-    
-    
 }
-- (void)bannerArrange{
-    
+
+/// bannerArrange
+- (void)bannerArrange
+{
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (orientation == UIInterfaceOrientationPortrait) {
+    if (orientation == UIInterfaceOrientationPortrait)
+    {
         NSLog(@"PORT");
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
             BannerHeight=50;
-            
             //32   This is Landscape
-        }else{
+        }
+        else
+        {
             BannerHeight=66;
             //90 Admob
         }
-        //        [someImageView1 setBackgroundImage:img1P forState:UIControlStateNormal];
-        //        [someImageView2 setBackgroundImage:img2P forState:UIControlStateNormal];
-        //        [someImageView3 setBackgroundImage:img3P forState:UIControlStateNormal];
-        //        [someImageView4 setBackgroundImage:img4P forState:UIControlStateNormal];
-        //        [someImageView5 setBackgroundImage:img5P forState:UIControlStateNormal];
-        //       someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
         
-        if(countstate==1){
-            
+        if(countState == 1)
+        {
             //[self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
             [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            
         }
         
         someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         
         ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         [ImageView1 setImage:img1];
-        //        someImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        //        someImageView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        //        someImageView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        //        someImageView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        //        someImageView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        
         
         someImageView1.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
         someImageView2.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
@@ -248,13 +199,7 @@
             BannerHeight=66;
             //90 Admob
         }
-        //        [someImageView1 setBackgroundImage:img1L forState:UIControlStateNormal];
-        //        [someImageView2 setBackgroundImage:img2L forState:UIControlStateNormal];
-        //        [someImageView3 setBackgroundImage:img3L forState:UIControlStateNormal];
-        //        [someImageView4 setBackgroundImage:img4L forState:UIControlStateNormal];
-        //        [someImageView5 setBackgroundImage:img5L forState:UIControlStateNormal];
-        //   someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-        if(countstate==1){
+        if(countState==1){
             
             //[self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
             [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
@@ -263,14 +208,7 @@
         
         ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
         [ImageView1 setImage:img1L];
-        //        someImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        //        someImageView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        //        someImageView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        //        someImageView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        //        someImageView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        
-        
-        
+
         someImageView1.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
         someImageView2.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
         someImageView3.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
@@ -306,31 +244,27 @@
     }
     
 }
-- (void)show2{
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+
+/// show2
+- (void)show2
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
         BannerHeight=50;
         
         //32   This is Landscape
-    }else{
+    }
+    else
+    {
         BannerHeight=66;
         //90 Admob
     }
-    
-    
-    
-    
-    
-    
+
     dispatch_async(kBgQueue, ^{
-        
-        
-        
         NSString *stringBuilder = @"https://itunes.apple.com/lookup?id=";
         stringBuilder = [stringBuilder stringByAppendingString:_CampaignID];
         NSLocale *locale = [NSLocale currentLocale];
         stringBuilder = [stringBuilder stringByAppendingString:@"&entity=software&country="];
-        //stringBuilder = [stringBuilder stringByAppendingString:@"&country="];
         
         stringBuilder = [stringBuilder stringByAppendingString:[locale objectForKey: NSLocaleCountryCode]];
         NSLog(@"%@",stringBuilder);
@@ -341,25 +275,23 @@
         NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
         
         [self performSelectorOnMainThread:@selector(fetchedData2:) withObject:data2 waitUntilDone:YES];
-        
-        
     });
-    
-    
-    
-    
 }
 
-- (void)fetchedData2:(NSData *)responseData {
+/// fetchedData2
+- (void)fetchedData2:(NSData *)responseData
+{
     NSError* error;
     
-    if(responseData==nil){
+    if(responseData==nil)
+    {
         NSLog(@"JSON Can't Find Data");
         
         return;
         
-    }else{
-        
+    }
+    else
+    {
         NSLog(@"JSON Get");
         Countnetwork=1;
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:responseData
@@ -393,37 +325,24 @@
         
         NSLog(@"%@",_AppID);
         //   ⭐🌟
-        
-        
-        
-        
-        
+
         NSLog(@"%@",jsonarray);//
-        // return;
         
-        
-        
-        
-        
-        if(jsonarray==NULL){
+        if(jsonarray==NULL)
+        {
             NSLog(@"JSON Object Not There");
             
             return;
             
-        }else{
-            
-            
+        }
+        else
+        {
             numObjectsP = [jsonarray count]-1;
             
-            
-            
             NSLog(@"This is the Number %lu",(unsigned long)numObjectsP);
-            
-            
+
             Countdelay = 10;
-            
-            
-            
+
             NSLog(@"JSON GET SUCCESS");
             defaults = [NSUserDefaults standardUserDefaults];
             
@@ -439,21 +358,17 @@
     }
 }
 
-
-
-
-
+/// showAd
 - (void)showAd
 {
-    
     NSLog(@"Downloading...");
     defaults = [NSUserDefaults standardUserDefaults];
-    
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-	if(numObjectsP==0){
+	if(numObjectsP==0)
+    {
         return;
     }
     
@@ -461,7 +376,8 @@
     
     Countmax=numObjectsP;
     
-    if(numObjectsP>=5){
+    if(numObjectsP>=5)
+    {
         Countmax=6;
     }
     
@@ -789,7 +705,7 @@
         //       someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
         
         
-        if(countstate==1){
+        if(countState==1){
             
             //[self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
             [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
@@ -858,7 +774,7 @@
         //        [someImageView5 setBackgroundImage:img5L forState:UIControlStateNormal];
         //   someScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
         
-        if(countstate==1){
+        if(countState==1){
             
             
             //  [self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
@@ -962,8 +878,8 @@
 
 -(void)swap1{
     
-    if(countstate==2){
-        countstate=3;
+    if(countState==2){
+        countState=3;
         return;
     }
     
