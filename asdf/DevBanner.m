@@ -81,7 +81,7 @@
             
             NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
             
-            [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data2 waitUntilDone:YES];
+            [self performSelectorOnMainThread:@selector(onInitialJsonFetch:) withObject:data2 waitUntilDone:YES];
         });
     }
     else
@@ -90,43 +90,16 @@
         
         Countnetwork=1;
         
-        jsonarray = [[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"];
-        
-        NSString* string2= [jsonarray[0] objectForKey:@"artistName"];
-        NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
-        
-        NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
-        
-        NSString* string4= [jsonarray[1] objectForKey:@"trackId"];
-        NSLog(@"%@",string1);
-        NSLog(@"%@",string2);
-        NSLog(@"%@",string3);
-        NSLog(@"%@",string4);
-        
-        label1a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,-12, 180, BannerHeight)];
-        label2a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
-        label3a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,11, 180, BannerHeight)];
-        
-        label1a.text=string1;
-        label2a.text=string2;
-        label3a.text=string3;
-
-        [label1a setFont:[UIFont systemFontOfSize:11]];
-        [label2a setFont:[UIFont systemFontOfSize:8]];
-        [label3a setFont:[UIFont systemFontOfSize:8]];
+        [self initializeLabels];
         
         NSLog(@"%@",_AppID);
-        
-        numObjectsP = [jsonarray count]-1;
-        
-        Countdelay = 10;
         
         [self showAd];
     }
 }
 
-/// fetchedData
-- (void)fetchedData:(NSData *)responseData
+/// onInitialJsonFetch
+- (void)onInitialJsonFetch:(NSData *)responseData
 {
     NSError* error;
 
@@ -175,7 +148,7 @@
         [defaults setValue:stringBuilder2 forKey:@"LandscapeURL"];
         [defaults synchronize];
 
-        [self show2];
+        [self fetchFromItunesAndShow];
     }
 }
 
@@ -298,8 +271,8 @@
     
 }
 
-/// show2
-- (void)show2
+/// fetchFromItunesAndShow
+- (void)fetchFromItunesAndShow
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
@@ -326,12 +299,12 @@
         
         NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
         
-        [self performSelectorOnMainThread:@selector(fetchedData2:) withObject:data2 waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(onItunesFetch:) withObject:data2 waitUntilDone:YES];
     });
 }
 
-/// fetchedData2
-- (void)fetchedData2:(NSData *)responseData
+/// onItunesFetch
+- (void)onItunesFetch:(NSData *)responseData
 {
     NSError* error;
     
@@ -351,29 +324,6 @@
         
         jsonarray = [json objectForKey:@"results"];
         
-        NSString* string2= [jsonarray[0] objectForKey:@"artistName"];
-        NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
-        
-        NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
-        
-        NSString* string4= [jsonarray[1] objectForKey:@"trackId"];
-        NSLog(@"%@",string1);
-        NSLog(@"%@",string2);
-        NSLog(@"%@",string3);
-        NSLog(@"%@",string4);
-        
-        label1a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,0-BannerHeight*.25, 180, BannerHeight)];
-        label2a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
-        label3a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,0+BannerHeight*.22, 180, BannerHeight)];
-        
-        label1a.text=string1;
-        label2a.text=string2;
-        label3a.text=string3;
-        
-        [label1a setFont:[UIFont systemFontOfSize:10]];
-        [label2a setFont:[UIFont systemFontOfSize:8]];
-        [label3a setFont:[UIFont systemFontOfSize:8]];
-        
         NSLog(@"%@",_AppID);
         //   ⭐🌟
 
@@ -387,18 +337,14 @@
         }
         else
         {
-            numObjectsP = [jsonarray count]-1;
-            
-            NSLog(@"This is the Number %lu",(unsigned long)numObjectsP);
-
-            Countdelay = 10;
-
             NSLog(@"JSON GET SUCCESS");
             defaults = [NSUserDefaults standardUserDefaults];
             
             [defaults setValue:jsonarray forKey:@"DevBannerJSON"];
             
             [defaults synchronize];
+            
+            [self initializeLabels];
 
             //Versioning Here
             [self showAd];
@@ -786,6 +732,40 @@
         someImageView5.layer.cornerRadius = 5;
         someImageView5.clipsToBounds = YES;
     }
+}
+
+-(void) initializeLabels
+{
+    jsonarray = [[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"];
+    
+    NSString* string2= [jsonarray[0] objectForKey:@"artistName"];
+    NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
+    
+    NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
+    
+    NSString* string4= [jsonarray[1] objectForKey:@"trackId"];
+    NSLog(@"%@",string1);
+    NSLog(@"%@",string2);
+    NSLog(@"%@",string3);
+    NSLog(@"%@",string4);
+    
+    label1a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,-12, 180, BannerHeight)];
+    label2a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
+    label3a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,11, 180, BannerHeight)];
+    
+    label1a.text=string1;
+    label2a.text=string2;
+    label3a.text=string3;
+    
+    [label1a setFont:[UIFont systemFontOfSize:11]];
+    [label2a setFont:[UIFont systemFontOfSize:8]];
+    [label3a setFont:[UIFont systemFontOfSize:8]];
+    
+    numObjectsP = [jsonarray count]-1;
+    
+    NSLog(@"This is the Number %lu",(unsigned long)numObjectsP);
+    
+    Countdelay = 10;
 }
 
 -(void)ad1{
