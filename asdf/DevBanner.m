@@ -90,7 +90,7 @@
         
         Countnetwork=1;
         
-        [self initializeLabels];
+        [self initializeLabelsAndCount];
         
         NSLog(@"%@",_AppID);
         
@@ -148,7 +148,7 @@
         [defaults setValue:stringBuilder2 forKey:@"LandscapeURL"];
         [defaults synchronize];
 
-        [self fetchFromItunesAndShow];
+        [self fetchFromAppStoreAndShow];
     }
 }
 
@@ -191,17 +191,11 @@
         someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
         someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        
-        label1a.frame = CGRectMake(BannerHeight+8,-12, 180, BannerHeight);
-        label2a.frame = CGRectMake(BannerHeight+15,0, 180, BannerHeight);
-        label3a.frame = CGRectMake(BannerHeight+23,11, 180, BannerHeight);
-        
-        [label1a setFont:[UIFont systemFontOfSize:11]];
-        [label2a setFont:[UIFont systemFontOfSize:8]];
-        [label3a setFont:[UIFont systemFontOfSize:8]];
-        
-        //
-        //
+
+        appNameLabel.frame = CGRectMake(BannerHeight+8,-12, 180, BannerHeight);
+        publisherNameLabel.frame = CGRectMake(BannerHeight+15,0, 180, BannerHeight);
+        priceLabel.frame = CGRectMake(BannerHeight+23,11, 180, BannerHeight);
+
         someImageView1.layer.cornerRadius = 11;
         someImageView1.clipsToBounds = YES;
         someImageView2.layer.cornerRadius = 11;
@@ -249,13 +243,9 @@
         someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
         someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
         
-        label1a.frame = CGRectMake(BannerHeight+18,-10, 180, BannerHeight);
-        label2a.frame = CGRectMake(BannerHeight+25,1, 180, BannerHeight);
-        label3a.frame = CGRectMake(BannerHeight+33,10, 180, BannerHeight);
-        
-        [label1a setFont:[UIFont systemFontOfSize:10]];
-        [label2a setFont:[UIFont systemFontOfSize:8]];
-        [label3a setFont:[UIFont systemFontOfSize:8]];
+        appNameLabel.frame = CGRectMake(BannerHeight+18,-10, 180, BannerHeight);
+        publisherNameLabel.frame = CGRectMake(BannerHeight+25,1, 180, BannerHeight);
+        priceLabel.frame = CGRectMake(BannerHeight+33,10, 180, BannerHeight);
         
         someImageView1.layer.cornerRadius = 5;
         someImageView1.clipsToBounds = YES;
@@ -271,8 +261,8 @@
     
 }
 
-/// fetchFromItunesAndShow
-- (void)fetchFromItunesAndShow
+/// fetchFromAppStoreAndShow
+- (void)fetchFromAppStoreAndShow
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
@@ -299,12 +289,12 @@
         
         NSData* data2 = [NSData dataWithContentsOfURL:kjsonURL];
         
-        [self performSelectorOnMainThread:@selector(onItunesFetch:) withObject:data2 waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(onAppStoreFetch:) withObject:data2 waitUntilDone:YES];
     });
 }
 
-/// onItunesFetch
-- (void)onItunesFetch:(NSData *)responseData
+/// onAppStoreFetch
+- (void)onAppStoreFetch:(NSData *)responseData
 {
     NSError* error;
     
@@ -344,11 +334,9 @@
             
             [defaults synchronize];
             
-            [self initializeLabels];
+            [self initializeLabelsAndCount];
 
-            //Versioning Here
             [self showAd];
-            
         }
     }
 }
@@ -362,7 +350,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-	if(numObjectsP==0)
+    if(numObjectsP==0)
     {
         return;
     }
@@ -379,22 +367,34 @@
     int i = 1;
     int j = 1;
     NSMutableArray *images = [NSMutableArray array];
-    while(i <= Countmax)
+    while(j <= Countmax)
     {
+        if (numObjectsP<i) {
+            j++;
+            NSLog(@"Last Banner");
+            continue;
+        }
         NSString *storelink = [NSString stringWithFormat:@"StoreLink%d", j];
+        NSString *appname = [NSString stringWithFormat:@"AppName%d", j];
+        NSString *appprice = [NSString stringWithFormat:@"AppPrice%d", j];
         NSString *filename = [NSString stringWithFormat:@"/Ad_%dP.png", j];
         NSString* string= [jsonarray[i] objectForKey:@"kind"];
+        NSString* string1= [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
+        
+        NSString* string2= [jsonarray[i] objectForKey:@"trackName"];
+        NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
+        
         NSLog(@"I Am The Number %@",string);
+        NSLog(@"I Am The Number %@",string2);
         
         if([string isEqualToString:@"mac-software"]){
-            NSLog(@"HELLLO");
+            NSLog(@"Mac App Skipped");
             
             i++;
             numObjectsP--;
             NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
-        
         
         if([[NSUserDefaults standardUserDefaults] valueForKey:storelink]==NULL)
         {
@@ -412,7 +412,8 @@
             NSString *imagePath1P = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:filename];
             [imageData1P writeToFile:imagePath1P atomically:YES];
             [defaults setValue:urlBuilder1 forKey:storelink];//
-            
+            [defaults setValue:string2 forKey:appname];
+            [defaults setValue:string3 forKey:appprice];
             [defaults synchronize];
         }
         
@@ -437,7 +438,7 @@
                 
                 [imageData1 writeToFile:imagePath1 atomically:YES];
                 [imageData2 writeToFile:imagePath2 atomically:YES];
-
+                
                 [defaults setValue:imagePath1 forKey:@"StoreLink"];
                 [defaults synchronize];
                 
@@ -504,28 +505,28 @@
         [someScrollView1 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
         
         NSUInteger numImg = [images count];
-
+        
         if (numImg==0) {
             return;
         }
-
-        if(numImg==1) {
+        
+        if(numImg>=1) {
             [someImageView1 setImage:images[0]];
         }
         
-        if(numImg==2) {
+        if(numImg>=2) {
             [someImageView2 setImage:images[1]];
         }
         
-        if(numImg==3) {
+        if(numImg>=3) {
             [someImageView3 setImage:images[2]];
         }
         
-        if(numImg==4) {
+        if(numImg>=4) {
             [someImageView4 setImage:images[3]];
         }
         
-        if(numImg==5) {
+        if(numImg>=5) {
             [someImageView5 setImage:images[4]];
         }
     }
@@ -581,27 +582,27 @@
             return;
         }
         
-        if(numImg==1) {
+        if(numImg>=1) {
             [someImageView1 setImage:images[0]];
         }
         
-        if(numImg==2) {
+        if(numImg>=2) {
             [someImageView2 setImage:images[1]];
         }
         
-        if(numImg==3) {
+        if(numImg>=3) {
             [someImageView3 setImage:images[2]];
         }
         
-        if(numImg==4) {
+        if(numImg>=4) {
             [someImageView4 setImage:images[3]];
         }
         
-        if(numImg==5) {
+        if(numImg>=5) {
             [someImageView5 setImage:images[4]];
         }
     }
-
+    
     [self bannerArrange];
     
     [self.view addSubview:someScrollView1];
@@ -616,156 +617,43 @@
 /// handleOrientationChangeNotification
 -(void)handleOrientationChangeNotification:(NSNotification *)notification
 {
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (orientation == UIInterfaceOrientationPortrait) {
-        NSLog(@"PORT");
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            BannerHeight=50;
-            
-            //32   This is Landscape
-        }else{
-            BannerHeight=66;
-            //90 Admob
-        }
-        
-        if(countState==1)
-        {
-            [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-            
-        }
-        
-        someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        
-        ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        [ImageView1 setImage:img1];
-        
-        someImageView1.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView2.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView3.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView4.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView5.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        
-        someButtonView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        
-        
-        label1a.frame = CGRectMake(BannerHeight+8,-12, 180, BannerHeight);
-        label2a.frame = CGRectMake(BannerHeight+15,0, 180, BannerHeight);
-        label3a.frame = CGRectMake(BannerHeight+23,11, 180, BannerHeight);
-        
-        [label1a setFont:[UIFont systemFontOfSize:11]];
-        [label2a setFont:[UIFont systemFontOfSize:8]];
-        [label3a setFont:[UIFont systemFontOfSize:8]];
-        
-        //
-        //
-        someImageView1.layer.cornerRadius = 11;
-        someImageView1.clipsToBounds = YES;
-        someImageView2.layer.cornerRadius = 11;
-        someImageView2.clipsToBounds = YES;
-        someImageView3.layer.cornerRadius = 11;
-        someImageView3.clipsToBounds = YES;
-        someImageView4.layer.cornerRadius = 11;
-        someImageView4.clipsToBounds = YES;
-        someImageView5.layer.cornerRadius = 11;
-        someImageView5.clipsToBounds = YES;
-        
-    }
-    else
-    {
-        NSLog(@"LAND");
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            BannerHeight=32;
-            
-            //32   This is Landscape
-        }
-        else
-        {
-            BannerHeight=66;
-            //90 Admob
-        }
-        
-        if(countState==1)
-        {
-            //  [self.view setFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-            
-            
-        }
-        someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        
-        ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        [ImageView1 setImage:img1L];
-        
-        someImageView1.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView2.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView3.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView4.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView5.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        
-        someButtonView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        
-        label1a.frame = CGRectMake(BannerHeight+18,-10, 180, BannerHeight);
-        label2a.frame = CGRectMake(BannerHeight+25,1, 180, BannerHeight);
-        label3a.frame = CGRectMake(BannerHeight+33,10, 180, BannerHeight);
-        
-        
-        [label1a setFont:[UIFont systemFontOfSize:10]];
-        [label2a setFont:[UIFont systemFontOfSize:8]];
-        [label3a setFont:[UIFont systemFontOfSize:8]];
-        
-        someImageView1.layer.cornerRadius = 5;
-        someImageView1.clipsToBounds = YES;
-        someImageView2.layer.cornerRadius = 5;
-        someImageView2.clipsToBounds = YES;
-        someImageView3.layer.cornerRadius = 5;
-        someImageView3.clipsToBounds = YES;
-        someImageView4.layer.cornerRadius = 5;
-        someImageView4.clipsToBounds = YES;
-        someImageView5.layer.cornerRadius = 5;
-        someImageView5.clipsToBounds = YES;
-    }
+    [self bannerArrange];
 }
 
--(void) initializeLabels
+-(void) initializeLabelsAndCount
 {
     jsonarray = [[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"];
     
-    NSString* string2= [jsonarray[0] objectForKey:@"artistName"];
-    NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
+    NSString* publisherName= [jsonarray[0] objectForKey:@"artistName"];
+    NSString* appName= [jsonarray[1] objectForKey:@"trackName"];
+    NSString* price=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
+    NSString* appId= [jsonarray[1] objectForKey:@"trackId"];
+
+    NSLog(@"%@",appName);
+    NSLog(@"%@",publisherName);
+    NSLog(@"%@",price);
+    NSLog(@"%@",appId);
     
-    NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
+    appNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,-12, 180, BannerHeight)];
+    publisherNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
+    priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,11, 180, BannerHeight)];
     
-    NSString* string4= [jsonarray[1] objectForKey:@"trackId"];
-    NSLog(@"%@",string1);
-    NSLog(@"%@",string2);
-    NSLog(@"%@",string3);
-    NSLog(@"%@",string4);
+    appNameLabel.text = appName;
+    publisherNameLabel.text = publisherName;
+    priceLabel.text = price;
     
-    label1a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,-12, 180, BannerHeight)];
-    label2a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
-    label3a = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,11, 180, BannerHeight)];
-    
-    label1a.text=string1;
-    label2a.text=string2;
-    label3a.text=string3;
-    
-    [label1a setFont:[UIFont systemFontOfSize:11]];
-    [label2a setFont:[UIFont systemFontOfSize:8]];
-    [label3a setFont:[UIFont systemFontOfSize:8]];
-    
+    [self setupLabelFonts];
+
     numObjectsP = [jsonarray count]-1;
     
-    NSLog(@"This is the Number %lu",(unsigned long)numObjectsP);
-    
-    Countdelay = 10;
+    Countdelay = 3;
+}
+
+-(void)setupLabelFonts
+{
+    [appNameLabel setFont:[UIFont systemFontOfSize:11]];
+    [publisherNameLabel setFont:[UIFont systemFontOfSize:8]];
+    [priceLabel setFont:[UIFont systemFontOfSize:8]];
 }
 
 -(void)ad1{
@@ -905,34 +793,34 @@
         [someButtonView4 removeFromSuperview];
         [someButtonView5 removeFromSuperview];
         
-        [label1a removeFromSuperview];
-        [label2a removeFromSuperview];
-        [label3a removeFromSuperview];
+        [appNameLabel removeFromSuperview];
+        [publisherNameLabel removeFromSuperview];
+        [priceLabel removeFromSuperview];
         
         
-        [label1a setTextColor:[UIColor whiteColor]];
-        [label2a setTextColor:[UIColor whiteColor]];
+        [appNameLabel setTextColor:[UIColor whiteColor]];
+        [publisherNameLabel setTextColor:[UIColor whiteColor]];
         
-        [label3a setTextColor:[UIColor whiteColor]];
+        [priceLabel setTextColor:[UIColor whiteColor]];
         
-        label1a.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
-        label1a.shadowOffset = CGSizeMake(1,1);
-        label2a.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
-        label2a.shadowOffset = CGSizeMake(1,1);
-        label3a.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
-        label3a.shadowOffset = CGSizeMake(1,1);
+        appNameLabel.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
+        appNameLabel.shadowOffset = CGSizeMake(1,1);
+        publisherNameLabel.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
+        publisherNameLabel.shadowOffset = CGSizeMake(1,1);
+        priceLabel.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
+        priceLabel.shadowOffset = CGSizeMake(1,1);
         
         [someScrollView1 addSubview:ImageView1];
         
-        [someScrollView1 addSubview:label1a];
-        [someScrollView1 addSubview:label2a];
-        [someScrollView1 addSubview:label3a];
+        [someScrollView1 addSubview:appNameLabel];
+        [someScrollView1 addSubview:publisherNameLabel];
+        [someScrollView1 addSubview:priceLabel];
         
         NSString* string1= [jsonarray[1] objectForKey:@"trackName"];
         NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
         
-        label1a.text=string1;
-        label3a.text=string3;
+        appNameLabel.text=string1;
+        priceLabel.text=string3;
         
         
         [someScrollView1 addSubview:someImageView1];
@@ -984,22 +872,22 @@
         [someScrollView1 addSubview:ImageView1];
         [someButtonView1 removeFromSuperview];
         
-        [label1a removeFromSuperview];
-        [label2a removeFromSuperview];
-        [label3a removeFromSuperview];
+        [appNameLabel removeFromSuperview];
+        [publisherNameLabel removeFromSuperview];
+        [priceLabel removeFromSuperview];
         
         [someScrollView1 addSubview:someImageView2];
         [someScrollView1 addSubview:someButtonView2];
         
-        [someScrollView1 addSubview:label1a];
-        [someScrollView1 addSubview:label2a];
-        [someScrollView1 addSubview:label3a];
+        [someScrollView1 addSubview:appNameLabel];
+        [someScrollView1 addSubview:publisherNameLabel];
+        [someScrollView1 addSubview:priceLabel];
         
         NSString* string1= [jsonarray[2] objectForKey:@"trackName"];
         NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[2] objectForKey:@"formattedPrice"]];
         
-        label1a.text=string1;
-        label3a.text=string3;
+        appNameLabel.text=string1;
+        priceLabel.text=string3;
         
         [UIView commitAnimations];
         
@@ -1045,23 +933,23 @@
         [someImageView2 removeFromSuperview];
         [someScrollView1 addSubview:ImageView1];
         
-        [label1a removeFromSuperview];
-        [label2a removeFromSuperview];
-        [label3a removeFromSuperview];
+        [appNameLabel removeFromSuperview];
+        [publisherNameLabel removeFromSuperview];
+        [priceLabel removeFromSuperview];
         
         [someScrollView1 addSubview:someImageView3];
         [someScrollView1 addSubview:someButtonView3];
         
         
-        [someScrollView1 addSubview:label1a];
-        [someScrollView1 addSubview:label2a];
-        [someScrollView1 addSubview:label3a];
+        [someScrollView1 addSubview:appNameLabel];
+        [someScrollView1 addSubview:publisherNameLabel];
+        [someScrollView1 addSubview:priceLabel];
         
         NSString* string1= [jsonarray[3] objectForKey:@"trackName"];
         NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[3] objectForKey:@"formattedPrice"]];
         
-        label1a.text=string1;
-        label3a.text=string3;
+        appNameLabel.text=string1;
+        priceLabel.text=string3;
         
         [UIView commitAnimations];
         
@@ -1106,23 +994,23 @@
         [someImageView3 removeFromSuperview];
         [someScrollView1 addSubview:ImageView1];
         
-        [label1a removeFromSuperview];
-        [label2a removeFromSuperview];
-        [label3a removeFromSuperview];
+        [appNameLabel removeFromSuperview];
+        [publisherNameLabel removeFromSuperview];
+        [priceLabel removeFromSuperview];
         
         [someScrollView1 addSubview:someImageView4];
         [someScrollView1 addSubview:someButtonView4];
         
         
-        [someScrollView1 addSubview:label1a];
-        [someScrollView1 addSubview:label2a];
-        [someScrollView1 addSubview:label3a];
+        [someScrollView1 addSubview:appNameLabel];
+        [someScrollView1 addSubview:publisherNameLabel];
+        [someScrollView1 addSubview:priceLabel];
         
         NSString* string1= [jsonarray[4] objectForKey:@"trackName"];
         NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[4] objectForKey:@"formattedPrice"]];
         
-        label1a.text=string1;
-        label3a.text=string3;
+        appNameLabel.text=string1;
+        priceLabel.text=string3;
         
         [UIView commitAnimations];
         
@@ -1168,23 +1056,23 @@
         
         [someScrollView1 addSubview:ImageView1];
         
-        [label1a removeFromSuperview];
-        [label2a removeFromSuperview];
-        [label3a removeFromSuperview];
+        [appNameLabel removeFromSuperview];
+        [publisherNameLabel removeFromSuperview];
+        [priceLabel removeFromSuperview];
         
         [someScrollView1 addSubview:someImageView5];
         [someScrollView1 addSubview:someButtonView5];
         
         
-        [someScrollView1 addSubview:label1a];
-        [someScrollView1 addSubview:label2a];
-        [someScrollView1 addSubview:label3a];
+        [someScrollView1 addSubview:appNameLabel];
+        [someScrollView1 addSubview:publisherNameLabel];
+        [someScrollView1 addSubview:priceLabel];
         
         NSString* string1= [jsonarray[5] objectForKey:@"trackName"];
         NSString* string3=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[5] objectForKey:@"formattedPrice"]];
         
-        label1a.text=string1;
-        label3a.text=string3;
+        appNameLabel.text=string1;
+        priceLabel.text=string3;
         
         [UIView commitAnimations];
         

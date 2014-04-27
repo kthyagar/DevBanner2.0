@@ -22,9 +22,9 @@
     UIButton *someButtonView4;
     UIButton *someButtonView5;
     
-    UILabel *label1a;
-    UILabel *label2a;
-    UILabel *label3a;
+    UILabel *appNameLabel;
+    UILabel *publisherNameLabel;
+    UILabel *priceLabel;
     UIImage *img1;
     UIImage *img1P;
     UIImage *img2P;
