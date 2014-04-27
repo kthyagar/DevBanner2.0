@@ -36,12 +36,12 @@
     UIImageView *ImageView2;
     NSArray* adimagesP;
     NSArray* adimagesL;
-    
+    NSUInteger numType;
     NSUInteger numObjectsP;
     NSUserDefaults *defaults;
     int Countfirstlaunch;
     int Countmode;
-    int countstate;
+    int countState;
     int Countdelay;
     int Countnetwork;
     int Countad;
@@ -53,6 +53,7 @@
 - (void)showAd;
 - (void)hide;
 @property(nonatomic, copy) NSString *CampaignID;
+@property(nonatomic, copy) NSString *AppType;
 @property(nonatomic, copy) NSArray *AppID;
 
 @property(nonatomic, readonly) UIDeviceOrientation orientation;

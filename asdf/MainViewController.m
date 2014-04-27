@@ -21,90 +21,90 @@
 - (void)viewDidLoad
 {
     
-//    NSString *string = @"?at=10lun6";
-//    
-//    
+    //    NSString *string = @"?at=10lun6";
+    //
+    //
     
     NSString *deviceType = [UIDevice currentDevice].model;
     NSString *version = [UIDevice currentDevice].systemVersion;
     NSString *stringBuilder;
-//    NSLocale *locale = [NSLocale currentLocale];
-//    stringBuilder = [stringBuilder stringByAppendingString:[locale objectForKey: NSLocaleCountryCode]];
-//    NSLog(@"%@",stringBuilder);
-
-
-//    self.applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-//    if ([self.applicationName length] == 0)
-//    {
-//        self.applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-//    }
+    //    NSLocale *locale = [NSLocale currentLocale];
+    //    stringBuilder = [stringBuilder stringByAppendingString:[locale objectForKey: NSLocaleCountryCode]];
+    //    NSLog(@"%@",stringBuilder);
+    
+    
+    //    self.applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    //    if ([self.applicationName length] == 0)
+    //    {
+    //        self.applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+    //    }
     
     
     NSLog(@"%@",deviceType);
     NSLog(@"%@",version);
     NSLog(@"%@",stringBuilder);
-
-
     
     
-
     
     
-//    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *string = @"55555555";
-//    NSString *string2 = @"777777";
-//    NSNumber *string3 = @888888;
-//    
-//    [defaults setValue:string forKey:@"DevBannerJSON"];
-//    [defaults setValue:string2 forKey:@"DevBannerJSON2"];
-//    [defaults setValue:string3 forKey:@"DevBannerJSON3"];
-//
-//    
-//    
-//    [defaults synchronize];
-//    
-//    
-//    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://devbanner.cloudapp.net/api/analytics/updateimpressions"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-//    
-//    NSDictionary* jsonDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"],@"CampaignId",[[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON2"],@"BannerId",[[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON3"],@"Impressions",nil];
-//    NSError *error;
-//    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:&error];
-//    
-//
-//    
-//    [theRequest setHTTPMethod:@"POST"];
-//    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [theRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
-//    [theRequest setHTTPBody:jsonData];
-//    
-//    NSURLResponse *response = nil;
-//   NSData *result = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:&error];
-//    
-//    if (error==nil) {
-//      NSLog(@"%@",result);
-//        
-//    }
+    
+    
+    
+    //
+    //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //    NSString *string = @"55555555";
+    //    NSString *string2 = @"777777";
+    //    NSNumber *string3 = @888888;
+    //
+    //    [defaults setValue:string forKey:@"DevBannerJSON"];
+    //    [defaults setValue:string2 forKey:@"DevBannerJSON2"];
+    //    [defaults setValue:string3 forKey:@"DevBannerJSON3"];
+    //
+    //
+    //
+    //    [defaults synchronize];
+    //
+    //
+    //    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://devbanner.cloudapp.net/api/analytics/updateimpressions"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    //
+    //    NSDictionary* jsonDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"],@"CampaignId",[[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON2"],@"BannerId",[[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON3"],@"Impressions",nil];
+    //    NSError *error;
+    //    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    //
+    //
+    //
+    //    [theRequest setHTTPMethod:@"POST"];
+    //    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    //    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    //    [theRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
+    //    [theRequest setHTTPBody:jsonData];
+    //
+    //    NSURLResponse *response = nil;
+    //   NSData *result = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:&error];
+    //
+    //    if (error==nil) {
+    //      NSLog(@"%@",result);
+    //
+    //    }
     
     
     self.jsontext.delegate = self;
     
     
     
-
+    
     rateme =[[DevRater alloc]initWithNibName:nil bundle:nil];
     //rateme =[[DevRater alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     
     
     
     [self.view addSubview:rateme.view];
-
+    
     [rateme show];
-
-
+    
+    
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 
@@ -118,7 +118,7 @@
     
     
     adbanner.CampaignID = [NSString stringWithString:myString];
-
+    
     
     
     
@@ -134,6 +134,13 @@
     [adbanner hide];
     
 }
+-(IBAction)resetDict{
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [adbanner hide];
+    [adbanner.view removeFromSuperview];
+    adbanner=nil;
+}
 
 -(IBAction)loadbanner{
     
@@ -142,23 +149,28 @@
     
     if (!adbanner) {
         
-    adbanner =[[DevBanner alloc]initWithNibName:nil bundle:nil];
-    NSString *myString = jsontext.text;
-    if([jsontext.text isEqual:@""]){
-    adbanner.CampaignID = @"298910979";
+        adbanner =[[DevBanner alloc]initWithNibName:nil bundle:nil];
+        NSString *myString = jsontext.text;
+        if([jsontext.text isEqual:@""]){
+            adbanner.CampaignID = @"298910979";
+            
+            
+            //adbanner.CampaignID = @"347400510";
+            
+            //Show FREE, PAID, or BOTH
+            adbanner.AppType = @"PAID";
+            
+            //
+            //      adbanner.DevID = @"347400510";
+            
+            
+            adbanner.AppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
+        }else{
+            NSLog(@"%@",myString);
+            adbanner.CampaignID = [NSString stringWithString:myString];
+        }
         
-        
-    // adbanner.CampaignID = @"347400510";
-        
-        
-
-    adbanner.AppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
-   }else{
-    NSLog(@"%@",myString);
-    adbanner.CampaignID = [NSString stringWithString:myString];
-   }
-    
-    [self.view addSubview:adbanner.view];
+        [self.view addSubview:adbanner.view];
     }
     [adbanner show];
     
