@@ -368,6 +368,17 @@
     publisherNameLabel.text = publisherName;
     priceLabel.text = price;
     
+    [appNameLabel setTextColor:[UIColor whiteColor]];
+    [publisherNameLabel setTextColor:[UIColor whiteColor]];
+    [priceLabel setTextColor:[UIColor whiteColor]];
+    
+    appNameLabel.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
+    appNameLabel.shadowOffset = CGSizeMake(1,1);
+    publisherNameLabel.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
+    publisherNameLabel.shadowOffset = CGSizeMake(1,1);
+    priceLabel.shadowColor =[UIColor colorWithWhite:0 alpha:.8];
+    priceLabel.shadowOffset = CGSizeMake(1,1);
+
     [self setupLabelFonts];
     
     numObjectsP = [jsonarray count]-1;
@@ -419,7 +430,8 @@
         Countad=0;
     }
     
-    if(Countad > numObjectsP)
+    int imgCount = [self.BannerImages count];
+    if(Countad > imgCount)
     {
         Countad = 1;
     }

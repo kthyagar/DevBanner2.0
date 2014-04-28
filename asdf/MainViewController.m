@@ -145,10 +145,10 @@
     adbanner =[[DevBanner alloc]initWithNibName:nil bundle:nil];
     NSString *myString = jsontext.text;
     if([jsontext.text isEqual:@""]){
- //  adbanner.CampaignID = @"298910979";
+ adbanner.CampaignID = @"298910979";
         
         
-   adbanner.CampaignID = @"347400510";
+   //adbanner.CampaignID = @"347400510";
         
         
 //
