@@ -1,8 +1,8 @@
 //
 //  DevBanner.m
 //
-//  Created by Nick Culbertson on 2/22/14.
-//  Copyright (c) 2014 Nick Culbertson. All rights reserved.
+//  Created by Nick Culbertson/Karthi T on 2/22/14.
+//  Copyright (c) 2014 Nick Culbertson/Karthi T. All rights reserved.
 //
 
 #import "DevBanner.h"
