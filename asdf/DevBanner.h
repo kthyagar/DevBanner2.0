@@ -58,3 +58,29 @@
 @property(nonatomic, readonly) UIDeviceOrientation orientation;
 
 @end
+
+extern const int PORTRAIT_BANNER_X;
+extern const int PORTRAIT_BANNER_Y;
+extern const int PORTRAIT_BANNER_HORIZONTAL_MARGIN;
+extern const int PORTRAIT_BANNER_VERTICAL_MARGIN;
+extern const int APP_NAME_LABEL_PORTRAIT_X_OFFSET;
+extern const int APP_NAME_LABEL_PORTRAIT_Y_OFFSET;
+extern const int PUBLISHER_NAME_LABEL_PORTRAIT_X_OFFSET;
+extern const int PUBLISHER_NAME_LABEL_PORTRAIT_Y_OFFSET;
+extern const int PRICE_LABEL_PORTRAIT_X_OFFSET;
+extern const int PRICE_LABEL_PORTRAIT_Y_OFFSET;
+extern const int PORTRAIT_LABEL_WIDTH;
+extern const int PORTRAIT_VIEW_CORNER_RADIUS;
+
+extern const int LANDSCAPE_BANNER_X;
+extern const int LANDSCAPE_BANNER_Y;
+extern const int LANDSCAPE_BANNER_HORIZONTAL_MARGIN;
+extern const int LANDSCAPE_BANNER_VERTICAL_MARGIN;
+extern const int APP_NAME_LABEL_LANDSCAPE_X_OFFSET;
+extern const int APP_NAME_LABEL_LANDSCAPE_Y_OFFSET;
+extern const int PUBLISHER_NAME_LABEL_LANDSCAPE_X_OFFSET;
+extern const int PUBLISHER_NAME_LABEL_LANDSCAPE_Y_OFFSET;
+extern const int PRICE_LABEL_LANDSCAPE_X_OFFSET;
+extern const int PRICE_LABEL_LANDSCAPE_Y_OFFSET;
+extern const int LANDSCAPE_LABEL_WIDTH;
+extern const int LANDSCAPE_VIEW_CORNER_RADIUS;

@@ -155,6 +155,22 @@
 /// bannerArrange
 - (void)bannerArrange
 {
+    int width;
+    int height;
+    int bannerX;
+    int bannerY;
+    int bannerHorizontalMargin;
+    int bannerVerticalMargin;
+    int appNameLabelXOffset;
+    int appNameLabelYOffset;
+    int publisherNameLabelXOffset;
+    int publisherNameLabelYOffset;
+    int priceLabelXOffset;
+    int priceLabelYOffset;
+    int cornerRadius;
+    int labelWidth;
+    UIImage* imgToUse;
+
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     if (orientation == UIInterfaceOrientationPortrait)
     {
@@ -170,42 +186,22 @@
             //90 Admob
         }
         
-        if(countState == 1)
-        {
-            [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.height-BannerHeight, [[UIScreen mainScreen] bounds].size.width, BannerHeight)];
-        }
-        
-        someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        
-        ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        [ImageView1 setImage:img1];
-        
-        someImageView1.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView2.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView3.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView4.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        someImageView5.frame = CGRectMake(2,4, BannerHeight-6, BannerHeight-6);
-        
-        someButtonView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-        someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
-
-        appNameLabel.frame = CGRectMake(BannerHeight+8,-12, 180, BannerHeight);
-        publisherNameLabel.frame = CGRectMake(BannerHeight+15,0, 180, BannerHeight);
-        priceLabel.frame = CGRectMake(BannerHeight+23,11, 180, BannerHeight);
-
-        someImageView1.layer.cornerRadius = 11;
-        someImageView1.clipsToBounds = YES;
-        someImageView2.layer.cornerRadius = 11;
-        someImageView2.clipsToBounds = YES;
-        someImageView3.layer.cornerRadius = 11;
-        someImageView3.clipsToBounds = YES;
-        someImageView4.layer.cornerRadius = 11;
-        someImageView4.clipsToBounds = YES;
-        someImageView5.layer.cornerRadius = 11;
-        someImageView5.clipsToBounds = YES;
+        imgToUse = img1;
+    
+        width = [[UIScreen mainScreen] bounds].size.width;
+        height = [[UIScreen mainScreen] bounds].size.height;
+        bannerX = PORTRAIT_BANNER_X;
+        bannerY = PORTRAIT_BANNER_Y;
+        bannerHorizontalMargin = PORTRAIT_BANNER_HORIZONTAL_MARGIN;
+        bannerVerticalMargin = PORTRAIT_BANNER_VERTICAL_MARGIN;
+        appNameLabelXOffset = APP_NAME_LABEL_PORTRAIT_X_OFFSET;
+        appNameLabelYOffset = APP_NAME_LABEL_PORTRAIT_Y_OFFSET;
+        publisherNameLabelXOffset = PUBLISHER_NAME_LABEL_PORTRAIT_X_OFFSET;
+        publisherNameLabelYOffset = PUBLISHER_NAME_LABEL_PORTRAIT_Y_OFFSET;
+        priceLabelXOffset = PRICE_LABEL_PORTRAIT_X_OFFSET;
+        priceLabelYOffset = PRICE_LABEL_PORTRAIT_Y_OFFSET;
+        cornerRadius = PORTRAIT_VIEW_CORNER_RADIUS;
+        labelWidth = PORTRAIT_LABEL_WIDTH;
     }
     else
     {
@@ -220,45 +216,62 @@
             BannerHeight=66;
             //90 Admob
         }
+        
+        imgToUse = img1L;
 
-        if(countState==1)
-        {
-            [self.view setFrame:CGRectMake(0,[[UIScreen mainScreen] bounds].size.width-BannerHeight, [[UIScreen mainScreen] bounds].size.height, BannerHeight)];
-        }
+        width = [[UIScreen mainScreen] bounds].size.height;
+        height = [[UIScreen mainScreen] bounds].size.width;
+        bannerX = LANDSCAPE_BANNER_X;
+        bannerY = LANDSCAPE_BANNER_Y;
+        bannerHorizontalMargin = LANDSCAPE_BANNER_HORIZONTAL_MARGIN;
+        bannerVerticalMargin = LANDSCAPE_BANNER_VERTICAL_MARGIN;
+        appNameLabelXOffset = APP_NAME_LABEL_LANDSCAPE_X_OFFSET;
+        appNameLabelYOffset = APP_NAME_LABEL_LANDSCAPE_Y_OFFSET;
+        publisherNameLabelXOffset = PUBLISHER_NAME_LABEL_LANDSCAPE_X_OFFSET;
+        publisherNameLabelYOffset = PUBLISHER_NAME_LABEL_LANDSCAPE_Y_OFFSET;
+        priceLabelXOffset = PRICE_LABEL_LANDSCAPE_X_OFFSET;
+        priceLabelYOffset = PRICE_LABEL_LANDSCAPE_Y_OFFSET;
+        cornerRadius = LANDSCAPE_VIEW_CORNER_RADIUS;
+        labelWidth = LANDSCAPE_LABEL_WIDTH;
+    }
 
-        someScrollView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        
-        ImageView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        [ImageView1 setImage:img1L];
-
-        someImageView1.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView2.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView3.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView4.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        someImageView5.frame = CGRectMake(6,2, BannerHeight-4, BannerHeight-4);
-        
-        someButtonView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, BannerHeight);
-        
-        appNameLabel.frame = CGRectMake(BannerHeight+18,-10, 180, BannerHeight);
-        publisherNameLabel.frame = CGRectMake(BannerHeight+25,1, 180, BannerHeight);
-        priceLabel.frame = CGRectMake(BannerHeight+33,10, 180, BannerHeight);
-        
-        someImageView1.layer.cornerRadius = 5;
-        someImageView1.clipsToBounds = YES;
-        someImageView2.layer.cornerRadius = 5;
-        someImageView2.clipsToBounds = YES;
-        someImageView3.layer.cornerRadius = 5;
-        someImageView3.clipsToBounds = YES;
-        someImageView4.layer.cornerRadius = 5;
-        someImageView4.clipsToBounds = YES;
-        someImageView5.layer.cornerRadius = 5;
-        someImageView5.clipsToBounds = YES;
+    if(countState==1)
+    {
+        [self.view setFrame:CGRectMake(0, height-BannerHeight, width, BannerHeight)];
     }
     
+    someScrollView1.frame = CGRectMake(0, 0, width, BannerHeight);
+    
+    ImageView1.frame = CGRectMake(0, 0, width, BannerHeight);
+    [ImageView1 setImage:imgToUse];
+
+    someImageView1.frame = CGRectMake(bannerX, bannerY, BannerHeight-bannerHorizontalMargin, BannerHeight-bannerVerticalMargin);
+    someImageView2.frame = CGRectMake(bannerX, bannerY, BannerHeight-bannerHorizontalMargin, BannerHeight-bannerVerticalMargin);
+    someImageView3.frame = CGRectMake(bannerX, bannerY, BannerHeight-bannerHorizontalMargin, BannerHeight-bannerVerticalMargin);
+    someImageView4.frame = CGRectMake(bannerX, bannerY, BannerHeight-bannerHorizontalMargin, BannerHeight-bannerVerticalMargin);
+    someImageView5.frame = CGRectMake(bannerX, bannerY, BannerHeight-bannerHorizontalMargin, BannerHeight-bannerVerticalMargin);
+    
+    someButtonView1.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+    someButtonView2.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+    someButtonView3.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+    someButtonView4.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+    someButtonView5.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, BannerHeight);
+    
+    appNameLabel.frame = CGRectMake(BannerHeight+appNameLabelXOffset,appNameLabelYOffset, labelWidth, BannerHeight);
+    publisherNameLabel.frame =
+       CGRectMake(BannerHeight+publisherNameLabelXOffset, publisherNameLabelYOffset, labelWidth, BannerHeight);
+    priceLabel.frame = CGRectMake(BannerHeight+priceLabelXOffset, priceLabelYOffset,labelWidth,BannerHeight);
+    
+    someImageView1.layer.cornerRadius = cornerRadius;
+    someImageView1.clipsToBounds = YES;
+    someImageView2.layer.cornerRadius = cornerRadius;
+    someImageView2.clipsToBounds = YES;
+    someImageView3.layer.cornerRadius = cornerRadius;
+    someImageView3.clipsToBounds = YES;
+    someImageView4.layer.cornerRadius = cornerRadius;
+    someImageView4.clipsToBounds = YES;
+    someImageView5.layer.cornerRadius = cornerRadius;
+    someImageView5.clipsToBounds = YES;
 }
 
 /// fetchFromAppStoreAndShow
@@ -1082,5 +1095,30 @@
     [self performSelector:@selector(swap1) withObject:nil afterDelay:Countdelay];
 }
 
-
 @end
+
+const int PORTRAIT_BANNER_X = 2;
+const int PORTRAIT_BANNER_Y = 4;
+const int PORTRAIT_BANNER_HORIZONTAL_MARGIN = 6;
+const int PORTRAIT_BANNER_VERTICAL_MARGIN = 6;
+const int APP_NAME_LABEL_PORTRAIT_X_OFFSET = 8;
+const int APP_NAME_LABEL_PORTRAIT_Y_OFFSET = -12;
+const int PUBLISHER_NAME_LABEL_PORTRAIT_X_OFFSET = 15;
+const int PUBLISHER_NAME_LABEL_PORTRAIT_Y_OFFSET = 0;
+const int PRICE_LABEL_PORTRAIT_X_OFFSET = 23;
+const int PRICE_LABEL_PORTRAIT_Y_OFFSET = 11;
+const int PORTRAIT_LABEL_WIDTH = 180;
+const int PORTRAIT_VIEW_CORNER_RADIUS = 11;
+
+const int LANDSCAPE_BANNER_X = 6;
+const int LANDSCAPE_BANNER_Y = 2;
+const int LANDSCAPE_BANNER_HORIZONTAL_MARGIN = 4;
+const int LANDSCAPE_BANNER_VERTICAL_MARGIN = 4;
+const int APP_NAME_LABEL_LANDSCAPE_X_OFFSET = 18;
+const int APP_NAME_LABEL_LANDSCAPE_Y_OFFSET = -10;
+const int PUBLISHER_NAME_LABEL_LANDSCAPE_X_OFFSET = 25;
+const int PUBLISHER_NAME_LABEL_LANDSCAPE_Y_OFFSET = 1;
+const int PRICE_LABEL_LANDSCAPE_X_OFFSET = 33;
+const int PRICE_LABEL_LANDSCAPE_Y_OFFSET = 10;
+const int LANDSCAPE_LABEL_WIDTH = 180;
+const int LANDSCAPE_VIEW_CORNER_RADIUS = 5;
