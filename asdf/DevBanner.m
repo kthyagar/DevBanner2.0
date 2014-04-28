@@ -200,27 +200,20 @@
         jsonarray = [json objectForKey:@"results"];
         
         NSLog(@"%@",_AppID);
-        //   ⭐🌟
-        
-        NSLog(@"%@",jsonarray);//
+        NSLog(@"%@",jsonarray);
         
         if(jsonarray==NULL)
         {
             NSLog(@"JSON Object Not There");
-            
             return;
         }
         else
         {
             NSLog(@"JSON GET SUCCESS");
             defaults = [NSUserDefaults standardUserDefaults];
-            
             [defaults setValue:jsonarray forKey:@"DevBannerJSON"];
-            
             [defaults synchronize];
-            
             [self initializeLabelsAndCount];
-            
             [self setupAdInfo];
         }
     }
@@ -391,9 +384,15 @@
 
 -(void)adClicked
 {
-    NSString* string = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUrl"];
-    NSURL *url = [NSURL URLWithString:string];
-    [[UIApplication sharedApplication]  openURL:url];
+    NSString* storeUrlStr = @"itms-apps://itunes.apple.com/app/id";
+    NSString* currentlyShownAppId = [[jsonarray[Countad] objectForKey:@"trackId"] stringValue];
+    NSString* linkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
+    storeUrlStr = [storeUrlStr stringByAppendingString:currentlyShownAppId];
+    storeUrlStr = [storeUrlStr stringByAppendingString:linkUrl];
+
+    NSURL *storeUrl = [NSURL URLWithString:storeUrlStr];
+    [[UIApplication sharedApplication]  openURL:storeUrl];
+    NSLog(@"%@",storeUrl);
 }
 
 -(void)swapBanner
