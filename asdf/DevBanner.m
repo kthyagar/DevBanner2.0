@@ -261,13 +261,14 @@
         NSString* rawAppPrice = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
         NSString* supporteddevices = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"supportedDevices"]];
         NSString* features = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"features"]];
-    
+        NSString* appid = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"trackId"]];
         NSString* appNameValue = [jsonarray[i] objectForKey:@"trackName"];
         NSString* priceValue = [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
         
         NSLog(@"I Am The Number %@",string);
         NSLog(@"I Am The Number %@",appNameValue);
         
+
         //Skip Mac
         if([string isEqualToString:@"mac-software"])
         {
@@ -337,6 +338,58 @@
             if (range1.location == NSNotFound&&range2.location == NSNotFound)
             {
                 NSLog(@"iPhone Only App Skipped");
+                i++;
+                numObjectsP--;
+                if(Countmax>numObjectsP)
+                {
+                    Countmax--;
+                }
+                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
+                continue;
+            }
+        }
+        
+        //Exclude Apps
+        if(_ExcludeAppID!=nil)
+        {
+            BOOL ExcludeBool=NO;
+            for (NSString *StringExclude in _ExcludeAppID)
+            {
+                if([StringExclude isEqualToString:appid])
+                {
+                    ExcludeBool=YES;
+                    break;
+                }
+            }
+            if(ExcludeBool==YES)
+            {
+                NSLog(@"Exclude App ID");
+                i++;
+                numObjectsP--;
+                if(Countmax>numObjectsP)
+                {
+                    Countmax--;
+                }
+                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
+                continue;
+            }
+        }
+        
+        //Include Apps
+        if(_IncludeAppID!=nil)
+        {
+            BOOL IncludeBool=NO;
+            for (NSString *StringInclude in _IncludeAppID)
+            {
+                if([StringInclude isEqualToString:appid])
+                {
+                    IncludeBool=YES;
+                    break;
+                }
+            }
+            if(IncludeBool==NO)
+            {
+                NSLog(@"Include App ID");
                 i++;
                 numObjectsP--;
                 if(Countmax>numObjectsP)
