@@ -214,6 +214,13 @@
             defaults = [NSUserDefaults standardUserDefaults];
             [defaults setValue:jsonarray forKey:@"DevBannerJSON"];
             [defaults synchronize];
+            
+            if([jsonarray count]==0)
+            {
+                NSLog(@"No Apps Found");
+                return;
+            }
+            
             [self initializeLabelsAndCount];
             [self setupAdInfo];
         }
@@ -228,11 +235,6 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    if(numObjectsP==0)
-    {
-        return;
-    }
     
     NSUInteger Countmax;
     
@@ -404,7 +406,9 @@
         if([[NSUserDefaults standardUserDefaults] valueForKey:storelink]==NULL)
         {
             NSString* stringBuilder1= [jsonarray[i] objectForKey:@"artworkUrl512"];
-            
+            NSString* basename = [stringBuilder1 stringByDeletingPathExtension];
+            stringBuilder1 = [basename stringByAppendingString:@".150x150-75.png"];
+            NSLog(@"Saving Image %@",stringBuilder1);
             NSString* appUrl=@"itms-apps://itunes.apple.com/app/id";
             NSString* urlBuilder2= [[jsonarray[i] objectForKey:@"trackId"] stringValue];
             NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
@@ -484,7 +488,6 @@
 -(void) initializeLabelsAndCount
 {
     jsonarray = [[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"];
-    
     NSString* publisherName= [jsonarray[0] objectForKey:@"artistName"];
     NSString* appName= [jsonarray[1] objectForKey:@"trackName"];
     NSString* price=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];

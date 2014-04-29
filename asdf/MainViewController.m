@@ -161,7 +161,7 @@
             
             
             //Show FREE, PAID, or BOTH
-            adbanner.AppType = @"FREE";
+            adbanner.AppType = @"PAID";
             
             //Apps to include when populating DevBanner view
 //            adbanner.IncludeAppID = [[NSArray alloc] initWithObjects:@"689546547",@"557785123",@"AppID_3",@"AppID_4",@"AppID_5", nil];
