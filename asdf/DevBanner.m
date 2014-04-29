@@ -246,7 +246,7 @@
     int i = 1;
     int j = 1;
     self.Banners = [NSMutableArray array];
-    while(j <= Countmax && i <= Countmax)
+    while(j <= Countmax)// && i <= Countmax)
     {
         BannerInfo *bi = [[BannerInfo alloc] init];
         bi.AppName = [jsonarray[i] objectForKey:@"trackName"];
@@ -272,6 +272,10 @@
             
             i++;
             numObjectsP--;
+            if(Countmax>numObjectsP)
+            {
+                Countmax--;
+            }
             NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
@@ -282,6 +286,24 @@
             
             i++;
             numObjectsP--;
+            if(Countmax>numObjectsP)
+            {
+                Countmax--;
+            }
+            NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
+            continue;
+        }
+        
+        if(![rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"FREE"])
+        {
+            NSLog(@"Paid App Skipped");
+            
+            i++;
+            numObjectsP--;
+            if(Countmax>numObjectsP)
+            {
+                Countmax--;
+            }
             NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
