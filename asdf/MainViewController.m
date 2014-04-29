@@ -156,6 +156,7 @@
             //adbanner.DeveloperId = @"347400510";//RainFrog
             //adbanner.DeveloperId = @"432169776";//A+ Kids Apps
             adbanner.DeveloperId = @"409029298";//Nick Culbertson
+            //adbanner.DeveloperId = @"295646464";//Weather
 
             
             

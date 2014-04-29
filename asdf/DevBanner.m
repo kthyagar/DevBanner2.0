@@ -556,13 +556,7 @@
     [self.ContainerView setBackgroundColor:[UIColor colorWithRed:value/255.0 green:value1/255.0  blue:value2/255.0 alpha:value3]];
     
     // Banner Flips
-    
     Countad++;
-    
-    NSLog(@"Port it");
-    if(numObjectsP<=1){
-        Countad=0;
-    }
     
     NSUInteger imgCount = [self.Banners count];
     if(Countad > imgCount)
@@ -573,6 +567,12 @@
     if(Countad > 0)
     {
         [self changeBannerImage];
+    }
+    
+    if(numObjectsP<=1){
+        //Only 1 Banner, No Need to Loop
+        Countad=0;
+        return;
     }
     
     //Add +1 to view count
