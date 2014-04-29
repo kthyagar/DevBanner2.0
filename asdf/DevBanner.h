@@ -33,7 +33,8 @@
 - (void)hide;
 @property(nonatomic, copy) NSString *DeveloperId;
 @property(nonatomic, copy) NSString *AppType;
-@property(nonatomic, copy) NSArray *AppID;
+@property(nonatomic, copy) NSArray *IncludeAppID;
+@property(nonatomic, copy) NSArray *ExcludeAppID;
 
 @property(nonatomic, readonly) UIDeviceOrientation orientation;
 

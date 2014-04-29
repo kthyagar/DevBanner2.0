@@ -100,7 +100,7 @@
         NSLog(@"JSON Reuse");
         Countnetwork=1;
         [self initializeLabelsAndCount];
-        NSLog(@"%@",_AppID);
+        NSLog(@"%@",_IncludeAppID);
         [self setupAdInfo];
     }
 }
@@ -200,7 +200,7 @@
         
         jsonarray = [json objectForKey:@"results"];
         
-        NSLog(@"%@",_AppID);
+        NSLog(@"%@",_IncludeAppID);
         NSLog(@"%@",jsonarray);
         
         if(jsonarray==NULL)
@@ -259,13 +259,16 @@
         NSString *filename = [NSString stringWithFormat:@"/Ad_%dP.png", j];
         NSString* string= [jsonarray[i] objectForKey:@"kind"];
         NSString* rawAppPrice = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
-        
+        NSString* supporteddevices = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"supportedDevices"]];
+        NSString* features = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"features"]];
+    
         NSString* appNameValue = [jsonarray[i] objectForKey:@"trackName"];
         NSString* priceValue = [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
         
         NSLog(@"I Am The Number %@",string);
         NSLog(@"I Am The Number %@",appNameValue);
         
+        //Skip Mac
         if([string isEqualToString:@"mac-software"])
         {
             NSLog(@"Mac App Skipped");
@@ -280,6 +283,7 @@
             continue;
         }
         
+        //Skip Free
         if([rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"PAID"])
         {
             NSLog(@"Free App Skipped");
@@ -294,6 +298,7 @@
             continue;
         }
         
+        //Skip Paid
         if(![rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"FREE"])
         {
             NSLog(@"Paid App Skipped");
@@ -306,6 +311,41 @@
             }
             NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
+        }
+        
+        //iPad & iPhone specific apps
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            NSRange range = [supporteddevices  rangeOfString:@"iPhone" options:NSCaseInsensitiveSearch];
+            if (range.location == NSNotFound)
+            {
+                NSLog(@"iPad Only App Skipped");
+                i++;
+                numObjectsP--;
+                if(Countmax>numObjectsP)
+                {
+                    Countmax--;
+                }
+                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
+                continue;
+            }
+        }
+        else
+        {
+            NSRange range1 = [supporteddevices  rangeOfString:@"iPhone" options:NSCaseInsensitiveSearch];
+            NSRange range2 = [features  rangeOfString:@"iosUniversal" options:NSCaseInsensitiveSearch];
+            if (range1.location == NSNotFound&&range2.location == NSNotFound)
+            {
+                NSLog(@"iPhone Only App Skipped");
+                i++;
+                numObjectsP--;
+                if(Countmax>numObjectsP)
+                {
+                    Countmax--;
+                }
+                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
+                continue;
+            }
         }
         
         if([[NSUserDefaults standardUserDefaults] valueForKey:storelink]==NULL)
@@ -468,7 +508,7 @@
         Countad=0;
     }
     
-    int imgCount = [self.Banners count];
+    NSUInteger imgCount = [self.Banners count];
     if(Countad > imgCount)
     {
         Countad = 1;
@@ -674,7 +714,7 @@
 @end
 
 // constants
-const int MAX_BANNERS = 5;
+const int MAX_BANNERS = 100;
 const int BANNER_SWAP_DELAY_IN_SECS = 3;
 
 const int PORTRAIT_BANNER_X = 2;

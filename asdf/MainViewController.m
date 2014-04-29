@@ -152,14 +152,22 @@
         adbanner =[[DevBanner alloc]initWithNibName:nil bundle:nil];
         NSString *myString = jsontext.text;
         if([jsontext.text isEqual:@""]){
-            adbanner.DeveloperId = @"298910979";
+            //adbanner.DeveloperId = @"298910979";//Rovio
+            //adbanner.DeveloperId = @"347400510";//RainFrog
+            adbanner.DeveloperId = @"432169776";//A+ Kids Apps
+            //adbanner.DeveloperId = @"409029298";//Nick Culbertson
+
             
-            //adbanner.DeveloperId = @"347400510";
+            
             
             //Show FREE, PAID, or BOTH
             adbanner.AppType = @"PAID";
             
-            adbanner.AppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
+            //Apps to include when populating DevBanner view
+ //           adbanner.IncludeAppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
+            
+            //Apps to exclude when populating DevBanner view
+ //           adbanner.ExcludeAppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
         }else{
             NSLog(@"%@",myString);
             adbanner.DeveloperId = [NSString stringWithString:myString];
