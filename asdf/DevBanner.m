@@ -714,7 +714,7 @@
 @end
 
 // constants
-const int MAX_BANNERS = 100;
+const int MAX_BANNERS = 5;
 const int BANNER_SWAP_DELAY_IN_SECS = 3;
 
 const int PORTRAIT_BANNER_X = 2;
