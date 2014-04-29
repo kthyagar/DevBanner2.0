@@ -31,6 +31,7 @@
 		5A8CDFD018FED3DC004D4C55 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFCF18FED3DC004D4C55 /* Icon.png */; };
 		5A8CDFD318FF0C7D004D4C55 /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFD118FF0C7D004D4C55 /* star1.png */; };
 		5A8CDFD418FF0C7D004D4C55 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFD218FF0C7D004D4C55 /* star2.png */; };
+		FC4EAD53190F2C29000C0195 /* BannerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4EAD52190F2C29000C0195 /* BannerInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		5A8CDFCF18FED3DC004D4C55 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		5A8CDFD118FF0C7D004D4C55 /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
 		5A8CDFD218FF0C7D004D4C55 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
+		FC4EAD51190F2C29000C0195 /* BannerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerInfo.h; sourceTree = "<group>"; };
+		FC4EAD52190F2C29000C0195 /* BannerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +158,8 @@
 				5A2B2B3F18FE1D8600CFC415 /* badge_appstore-lrg.png */,
 				5A62286B18B68E4A00A7553A /* Images.xcassets */,
 				5A62285418B68E4A00A7553A /* Supporting Files */,
+				FC4EAD51190F2C29000C0195 /* BannerInfo.h */,
+				FC4EAD52190F2C29000C0195 /* BannerInfo.m */,
 			);
 			path = asdf;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC4EAD53190F2C29000C0195 /* BannerInfo.m in Sources */,
 				5A8CDFCE18FECC29004D4C55 /* DevRater.m in Sources */,
 				5A62285E18B68E4A00A7553A /* AppDelegate.m in Sources */,
 				5A70B2A118B90FAC0024053E /* DevBanner.m in Sources */,

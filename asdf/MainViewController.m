@@ -117,7 +117,7 @@
     NSLog(@"%@",myString);
     
     
-    adbanner.CampaignID = [NSString stringWithString:myString];
+    adbanner.DeveloperId = [NSString stringWithString:myString];
     
     
     
@@ -152,22 +152,17 @@
         adbanner =[[DevBanner alloc]initWithNibName:nil bundle:nil];
         NSString *myString = jsontext.text;
         if([jsontext.text isEqual:@""]){
-            adbanner.CampaignID = @"298910979";
+            adbanner.DeveloperId = @"298910979";
             
-            
-            //adbanner.CampaignID = @"347400510";
+            //adbanner.DeveloperId = @"347400510";
             
             //Show FREE, PAID, or BOTH
             adbanner.AppType = @"PAID";
             
-            //
-            //      adbanner.DevID = @"347400510";
-            
-            
             adbanner.AppID = [[NSArray alloc] initWithObjects:@"AppID_1",@"AppID_2",@"AppID_3",@"AppID_4",@"AppID_5", nil];
         }else{
             NSLog(@"%@",myString);
-            adbanner.CampaignID = [NSString stringWithString:myString];
+            adbanner.DeveloperId = [NSString stringWithString:myString];
         }
         
         [self.view addSubview:adbanner.view];
