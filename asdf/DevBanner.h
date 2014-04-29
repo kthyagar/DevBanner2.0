@@ -31,7 +31,8 @@
 - (void)show;
 - (void)setupAdInfo;
 - (void)hide;
-@property(nonatomic, copy) NSString *CampaignID;
+@property(nonatomic, copy) NSString *DeveloperId;
+@property(nonatomic, copy) NSString *AppType;
 @property(nonatomic, copy) NSArray *AppID;
 
 @property(nonatomic, readonly) UIDeviceOrientation orientation;

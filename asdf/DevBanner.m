@@ -6,13 +6,14 @@
 //
 
 #import "DevBanner.h"
+#import "BannerInfo.h"
 
 @interface DevBanner()
 @property (nonatomic, strong) UIImageView *BannerImageView;
 @property (nonatomic, strong) UIImageView *BannerBackgroundImageView;
 @property (nonatomic, strong) UIButton *BannerButton;
 @property (nonatomic, strong) UIScrollView *ContainerView;
-@property (nonatomic, strong) NSMutableArray *BannerImages;
+@property (nonatomic, strong) NSMutableArray *Banners;
 @property (nonatomic, strong) UIImage *PortraitBackgroundImage;
 @property (nonatomic, strong) UIImage *LandscapeBackgroundImage;
 @end
@@ -163,7 +164,7 @@
 {
     dispatch_async(kBgQueue, ^{
         NSString *stringBuilder = @"https://itunes.apple.com/lookup?id=";
-        stringBuilder = [stringBuilder stringByAppendingString:_CampaignID];
+        stringBuilder = [stringBuilder stringByAppendingString:_DeveloperId];
         NSLocale *locale = [NSLocale currentLocale];
         stringBuilder = [stringBuilder stringByAppendingString:@"&entity=software&country="];
         
@@ -244,15 +245,20 @@
     
     int i = 1;
     int j = 1;
-    self.BannerImages = [NSMutableArray array];
+    self.Banners = [NSMutableArray array];
     while(j <= Countmax && i <= Countmax)
     {
+        BannerInfo *bi = [[BannerInfo alloc] init];
+        bi.AppName = [jsonarray[i] objectForKey:@"trackName"];
+        bi.AppPrice = [jsonarray[i] objectForKey:@"price"];
+        bi.FormattedAppPrice = [jsonarray[i] objectForKey:@"formattedPrice"];
+
         NSString *storelink = [NSString stringWithFormat:@"StoreLink%d", j];
         NSString *appname = [NSString stringWithFormat:@"AppName%d", j];
         NSString *appprice = [NSString stringWithFormat:@"AppPrice%d", j];
         NSString *filename = [NSString stringWithFormat:@"/Ad_%dP.png", j];
         NSString* string= [jsonarray[i] objectForKey:@"kind"];
-        NSString* string1= [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
+        NSString* rawAppPrice = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
         
         NSString* appNameValue = [jsonarray[i] objectForKey:@"trackName"];
         NSString* priceValue = [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
@@ -260,8 +266,19 @@
         NSLog(@"I Am The Number %@",string);
         NSLog(@"I Am The Number %@",appNameValue);
         
-        if([string isEqualToString:@"mac-software"]){
+        if([string isEqualToString:@"mac-software"])
+        {
             NSLog(@"Mac App Skipped");
+            
+            i++;
+            numObjectsP--;
+            NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
+            continue;
+        }
+        
+        if([rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"PAID"])
+        {
+            NSLog(@"Free App Skipped");
             
             i++;
             numObjectsP--;
@@ -273,11 +290,11 @@
         {
             NSString* stringBuilder1= [jsonarray[i] objectForKey:@"artworkUrl512"];
             
-            NSString* urlBuilder1=@"itms-apps://itunes.apple.com/app/id";
+            NSString* appUrl=@"itms-apps://itunes.apple.com/app/id";
             NSString* urlBuilder2= [[jsonarray[i] objectForKey:@"trackId"] stringValue];
             NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-            urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder2];
-            urlBuilder1 = [urlBuilder1 stringByAppendingString:urlBuilder3];
+            appUrl = [appUrl stringByAppendingString:urlBuilder2];
+            appUrl = [appUrl stringByAppendingString:urlBuilder3];
             
             NSData *imageData1P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
             
@@ -285,15 +302,18 @@
             NSString *imagePath1P =
             [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:filename];
             [imageData1P writeToFile:imagePath1P atomically:YES];
-            [defaults setValue:urlBuilder1 forKey:storelink];
+            [defaults setValue:appUrl forKey:storelink];
             [defaults setValue:appNameValue forKey:appname];
             [defaults setValue:priceValue forKey:appprice];
             [defaults synchronize];
+            
+            bi.AppUrl = appUrl;
         }
         
         NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:filename];
         
-        [self.BannerImages addObject:[UIImage imageWithContentsOfFile:getImagePath]];
+        bi.AppImage = [UIImage imageWithContentsOfFile:getImagePath];
+        [self.Banners addObject:bi];
         
         i++;
         j++;
@@ -395,13 +415,9 @@
 
 -(void)adClicked
 {
-    NSString* storeUrlStr = @"itms-apps://itunes.apple.com/app/id";
-    NSString* currentlyShownAppId = [[jsonarray[Countad] objectForKey:@"trackId"] stringValue];
-    NSString* linkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
-    storeUrlStr = [storeUrlStr stringByAppendingString:currentlyShownAppId];
-    storeUrlStr = [storeUrlStr stringByAppendingString:linkUrl];
+    BannerInfo *bi = [self.Banners objectAtIndex:Countad-1];
 
-    NSURL *storeUrl = [NSURL URLWithString:storeUrlStr];
+    NSURL *storeUrl = [NSURL URLWithString:bi.AppUrl];
     [[UIApplication sharedApplication]  openURL:storeUrl];
     NSLog(@"%@",storeUrl);
 }
@@ -430,7 +446,7 @@
         Countad=0;
     }
     
-    int imgCount = [self.BannerImages count];
+    int imgCount = [self.Banners count];
     if(Countad > imgCount)
     {
         Countad = 1;
@@ -584,13 +600,12 @@
 {
     [self runAnimation];
     
-    NSString* publisherName = [jsonarray[Countad] objectForKey:@"trackName"];
-    NSString* price = [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[Countad] objectForKey:@"formattedPrice"]];
+    BannerInfo *bi = [self.Banners objectAtIndex:Countad-1];
     
-    appNameLabel.text = publisherName;
-    priceLabel.text = price;
+    appNameLabel.text = bi.AppName;
+    priceLabel.text = bi.FormattedAppPrice;
     
-    [self.BannerImageView setImage:self.BannerImages[Countad-1]];
+    [self.BannerImageView setImage:bi.AppImage];
     
     [UIView commitAnimations];
 }

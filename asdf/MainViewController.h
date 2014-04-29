@@ -18,6 +18,7 @@
 -(IBAction)loadbanner;
 -(IBAction)resume;
 -(IBAction)hide;
+-(IBAction)resetDict;
 @property (nonatomic, strong) UIView* customView;
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
 @property (strong, nonatomic) UITextField *jsontext;
