@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A145ED4191093C70071FB02 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A145ED3191093C70071FB02 /* star2.png */; };
 		5A2B2B4018FE1D8600CFC415 /* badge_appstore-lrg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B2B3F18FE1D8600CFC415 /* badge_appstore-lrg.png */; };
 		5A62284E18B68E4A00A7553A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A62284D18B68E4A00A7553A /* Foundation.framework */; };
 		5A62285018B68E4A00A7553A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A62284F18B68E4A00A7553A /* CoreGraphics.framework */; };
@@ -30,7 +31,6 @@
 		5A8CDFCE18FECC29004D4C55 /* DevRater.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8CDFCD18FECC29004D4C55 /* DevRater.m */; };
 		5A8CDFD018FED3DC004D4C55 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFCF18FED3DC004D4C55 /* Icon.png */; };
 		5A8CDFD318FF0C7D004D4C55 /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFD118FF0C7D004D4C55 /* star1.png */; };
-		5A8CDFD418FF0C7D004D4C55 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFD218FF0C7D004D4C55 /* star2.png */; };
 		FC4EAD53190F2C29000C0195 /* BannerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4EAD52190F2C29000C0195 /* BannerInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A145ED3191093C70071FB02 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
 		5A2B2B3F18FE1D8600CFC415 /* badge_appstore-lrg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge_appstore-lrg.png"; sourceTree = "<group>"; };
 		5A62284A18B68E4A00A7553A /* asdf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = asdf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A62284D18B68E4A00A7553A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -76,7 +77,6 @@
 		5A8CDFCD18FECC29004D4C55 /* DevRater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevRater.m; sourceTree = "<group>"; };
 		5A8CDFCF18FED3DC004D4C55 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		5A8CDFD118FF0C7D004D4C55 /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
-		5A8CDFD218FF0C7D004D4C55 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
 		FC4EAD51190F2C29000C0195 /* BannerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerInfo.h; sourceTree = "<group>"; };
 		FC4EAD52190F2C29000C0195 /* BannerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,8 +151,8 @@
 				5A62286818B68E4A00A7553A /* FlipsideViewController.h */,
 				5A62286918B68E4A00A7553A /* FlipsideViewController.m */,
 				5A8CDFCF18FED3DC004D4C55 /* Icon.png */,
+				5A145ED3191093C70071FB02 /* star2.png */,
 				5A8CDFD118FF0C7D004D4C55 /* star1.png */,
-				5A8CDFD218FF0C7D004D4C55 /* star2.png */,
 				5A62B31B18F606EE00477EA6 /* dsgn_93_default.menu.png */,
 				5A62B31C18F606EE00477EA6 /* stargold.png */,
 				5A2B2B3F18FE1D8600CFC415 /* badge_appstore-lrg.png */,
@@ -273,7 +273,7 @@
 				5A8CDFD318FF0C7D004D4C55 /* star1.png in Resources */,
 				5A62286418B68E4A00A7553A /* Main_iPad.storyboard in Resources */,
 				5A62286C18B68E4A00A7553A /* Images.xcassets in Resources */,
-				5A8CDFD418FF0C7D004D4C55 /* star2.png in Resources */,
+				5A145ED4191093C70071FB02 /* star2.png in Resources */,
 				5A2B2B4018FE1D8600CFC415 /* badge_appstore-lrg.png in Resources */,
 				5A62B31E18F606EE00477EA6 /* dsgn_93_default.menu.png in Resources */,
 				5A62286118B68E4A00A7553A /* Main_iPhone.storyboard in Resources */,
