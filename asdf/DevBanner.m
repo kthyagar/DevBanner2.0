@@ -259,20 +259,20 @@
         NSString *appname = [NSString stringWithFormat:@"AppName%d", j];
         NSString *appprice = [NSString stringWithFormat:@"AppPrice%d", j];
         NSString *filename = [NSString stringWithFormat:@"/Ad_%dP.png", j];
-        NSString* string= [jsonarray[i] objectForKey:@"kind"];
-        NSString* rawAppPrice = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
-        NSString* supporteddevices = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"supportedDevices"]];
-        NSString* features = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"features"]];
-        NSString* appid = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"trackId"]];
-        NSString* appNameValue = [jsonarray[i] objectForKey:@"trackName"];
-        NSString* priceValue = [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
+        NSString *appKind = [jsonarray[i] objectForKey:@"kind"];
+        NSString *rawAppPrice = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"price"]];
+        NSString *supporteddevices = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"supportedDevices"]];
+        NSString *features = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"features"]];
+        NSString *appid = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"trackId"]];
+        NSString *appNameValue = [jsonarray[i] objectForKey:@"trackName"];
+        NSString *priceValue =
+           [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
         
-        NSLog(@"I Am The Number %@",string);
+        NSLog(@"I Am The Number %@",appKind);
         NSLog(@"I Am The Number %@",appNameValue);
-        
 
-        //Skip Mac
-        if([string isEqualToString:@"mac-software"])
+        // Skip Mac
+        if([appKind isEqualToString:@"mac-software"])
         {
             NSLog(@"Mac App Skipped");
             
@@ -568,15 +568,12 @@
     {
         [self changeBannerImage];
     }
-    
-    if(numObjectsP<=1){
-        //Only 1 Banner, No Need to Loop
-        Countad=0;
-        return;
+
+    // loop only if we have more than 1 banner
+    if(numObjectsP > 1)
+    {
+        [self performSelector:@selector(swapBanner) withObject:nil afterDelay:Countdelay];
     }
-    
-    //Add +1 to view count
-    [self performSelector:@selector(swapBanner) withObject:nil afterDelay:Countdelay];
 }
 
 // constructViews
