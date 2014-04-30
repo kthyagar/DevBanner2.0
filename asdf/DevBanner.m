@@ -248,7 +248,7 @@
     int i = 1;
     int j = 1;
     self.Banners = [NSMutableArray array];
-    while(j <= Countmax)// && i <= Countmax)
+    while(j <= Countmax && i <= Countmax)
     {
         BannerInfo *bi = [[BannerInfo alloc] init];
         bi.AppName = [jsonarray[i] objectForKey:@"trackName"];
@@ -277,12 +277,6 @@
             NSLog(@"Mac App Skipped");
             
             i++;
-            numObjectsP--;
-            if(Countmax>numObjectsP)
-            {
-                Countmax--;
-            }
-            NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
         
@@ -292,12 +286,6 @@
             NSLog(@"Free App Skipped");
             
             i++;
-            numObjectsP--;
-            if(Countmax>numObjectsP)
-            {
-                Countmax--;
-            }
-            NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
         
@@ -307,12 +295,6 @@
             NSLog(@"Paid App Skipped");
             
             i++;
-            numObjectsP--;
-            if(Countmax>numObjectsP)
-            {
-                Countmax--;
-            }
-            NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
             continue;
         }
         
@@ -324,12 +306,6 @@
             {
                 NSLog(@"iPad Only App Skipped");
                 i++;
-                numObjectsP--;
-                if(Countmax>numObjectsP)
-                {
-                    Countmax--;
-                }
-                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
                 continue;
             }
         }
@@ -341,81 +317,65 @@
             {
                 NSLog(@"iPhone Only App Skipped");
                 i++;
-                numObjectsP--;
-                if(Countmax>numObjectsP)
-                {
-                    Countmax--;
-                }
-                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
                 continue;
             }
         }
         
         //Exclude Apps
-        if(_ExcludeAppID!=nil)
+        if(self.ExcludeAppID != nil)
         {
-            BOOL ExcludeBool=NO;
-            for (NSString *StringExclude in _ExcludeAppID)
+            BOOL shouldExcludeApp = NO;
+            for (NSString *StringExclude in self.ExcludeAppID)
             {
                 if([StringExclude isEqualToString:appid])
                 {
-                    ExcludeBool=YES;
+                    shouldExcludeApp = YES;
                     break;
                 }
             }
-            if(ExcludeBool==YES)
+
+            if(shouldExcludeApp)
             {
                 NSLog(@"Exclude App ID");
                 i++;
-                numObjectsP--;
-                if(Countmax>numObjectsP)
-                {
-                    Countmax--;
-                }
-                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
                 continue;
             }
         }
         
         //Include Apps
-        if(_IncludeAppID!=nil)
+        if(self.IncludeAppID != nil)
         {
-            BOOL IncludeBool=NO;
-            for (NSString *StringInclude in _IncludeAppID)
+            BOOL shouldIncludeApp = NO;
+            for (NSString *StringInclude in self.IncludeAppID)
             {
                 if([StringInclude isEqualToString:appid])
                 {
-                    IncludeBool=YES;
+                    shouldIncludeApp = YES;
                     break;
                 }
             }
-            if(IncludeBool==NO)
+
+            if(!shouldIncludeApp)
             {
                 NSLog(@"Include App ID");
                 i++;
-                numObjectsP--;
-                if(Countmax>numObjectsP)
-                {
-                    Countmax--;
-                }
-                NSLog(@"I Am The Number %lu",(unsigned long)numObjectsP);
                 continue;
             }
         }
         
         if([[NSUserDefaults standardUserDefaults] valueForKey:storelink]==NULL)
         {
-            NSString* stringBuilder1= [jsonarray[i] objectForKey:@"artworkUrl512"];
-            NSString* basename = [stringBuilder1 stringByDeletingPathExtension];
-            stringBuilder1 = [basename stringByAppendingString:@".150x150-75.png"];
-            NSLog(@"Saving Image %@",stringBuilder1);
+            NSString* artworkUrlValue = [jsonarray[i] objectForKey:@"artworkUrl512"];
+            NSString* basename = [artworkUrlValue stringByDeletingPathExtension];
+            artworkUrlValue = [basename stringByAppendingString:@".150x150-75.png"];
+            NSLog(@"Saving Image %@",artworkUrlValue);
             NSString* appUrl=@"itms-apps://itunes.apple.com/app/id";
             NSString* urlBuilder2= [[jsonarray[i] objectForKey:@"trackId"] stringValue];
             NSString* urlBuilder3 = [[NSUserDefaults standardUserDefaults] objectForKey:@"LinkURL"];
             appUrl = [appUrl stringByAppendingString:urlBuilder2];
             appUrl = [appUrl stringByAppendingString:urlBuilder3];
             
-            NSData *imageData1P = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringBuilder1]];
+            NSData *imageData1P = [NSData dataWithContentsOfURL:[NSURL URLWithString:artworkUrlValue]];
             
             NSLog(@"Saving Image %d",i);
             NSString *imagePath1P =
@@ -570,7 +530,7 @@
     }
 
     // loop only if we have more than 1 banner
-    if(numObjectsP > 1)
+    if(self.Banners.count > 1)
     {
         [self performSelector:@selector(swapBanner) withObject:nil afterDelay:Countdelay];
     }
