@@ -254,6 +254,7 @@
         bi.AppName = [jsonarray[i] objectForKey:@"trackName"];
         bi.AppPrice = [jsonarray[i] objectForKey:@"price"];
         bi.FormattedAppPrice = [jsonarray[i] objectForKey:@"formattedPrice"];
+        bi.AppUrl= [jsonarray[i] objectForKey:@"trackId"];
         
         NSString *storelink = [NSString stringWithFormat:@"StoreLink%d", j];
         NSString *appname = [NSString stringWithFormat:@"AppName%d", j];
