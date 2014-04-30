@@ -154,15 +154,15 @@
         if([jsontext.text isEqual:@""]){
             //adbanner.DeveloperId = @"298910979";//Rovio
             //adbanner.DeveloperId = @"347400510";//RainFrog
-            //adbanner.DeveloperId = @"432169776";//A+ Kids Apps
-            adbanner.DeveloperId = @"409029298";//Nick Culbertson
+            adbanner.DeveloperId = @"432169776";//A+ Kids Apps
+            //adbanner.DeveloperId = @"409029298";//Nick Culbertson
             //adbanner.DeveloperId = @"295646464";//Weather
 
             
             
             
             //Show FREE, PAID, or BOTH
-            //adbanner.AppType = @"PAID";
+            adbanner.AppType = @"PAID";
             
             //Apps to include when populating DevBanner view
 //            adbanner.IncludeAppID = [[NSArray alloc] initWithObjects:@"689546547",@"557785123",@"AppID_3",@"AppID_4",@"AppID_5", nil];

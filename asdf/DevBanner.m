@@ -248,7 +248,7 @@
     int i = 1;
     int j = 1;
     self.Banners = [NSMutableArray array];
-    while(j <= Countmax && i <= Countmax)
+    while(j <= Countmax||i <= Countmax)
     {
         BannerInfo *bi = [[BannerInfo alloc] init];
         bi.AppName = [jsonarray[i] objectForKey:@"trackName"];
@@ -275,7 +275,16 @@
         if([appKind isEqualToString:@"mac-software"])
         {
             NSLog(@"Mac App Skipped");
-            
+            //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+            //Also if numObjectsP<=5 we should Countmax--;
+            //An example is found when selecting PAID on A+ Kids
+            numObjectsP--;
+            if(numObjectsP<=Countmax){
+                Countmax--;
+            }
+            //
+            //
+            //
             i++;
             continue;
         }
@@ -284,7 +293,16 @@
         if([rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"PAID"])
         {
             NSLog(@"Free App Skipped");
-            
+            //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+            //Also if numObjectsP<=5 we should Countmax--;
+            //An example is found when selecting PAID on A+ Kids
+            numObjectsP--;
+            if(numObjectsP<=Countmax){
+                Countmax--;
+            }
+            //
+            //
+            //
             i++;
             continue;
         }
@@ -293,7 +311,16 @@
         if(![rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"FREE"])
         {
             NSLog(@"Paid App Skipped");
-            
+            //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+            //Also if numObjectsP<=5 we should Countmax--;
+            //An example is found when selecting PAID on A+ Kids
+            numObjectsP--;
+            if(numObjectsP<=Countmax){
+                Countmax--;
+            }
+            //
+            //
+            //
             i++;
             continue;
         }
@@ -305,6 +332,16 @@
             if (range.location == NSNotFound)
             {
                 NSLog(@"iPad Only App Skipped");
+                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+                //Also if numObjectsP<=5 we should Countmax--;
+                //An example is found when selecting PAID on A+ Kids
+                numObjectsP--;
+                if(numObjectsP<=Countmax){
+                    Countmax--;
+                }
+                //
+                //
+                //
                 i++;
                 continue;
             }
@@ -316,6 +353,16 @@
             if (range1.location == NSNotFound&&range2.location == NSNotFound)
             {
                 NSLog(@"iPhone Only App Skipped");
+                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+                //Also if numObjectsP<=5 we should Countmax--;
+                //An example is found when selecting PAID on A+ Kids
+                numObjectsP--;
+                if(numObjectsP<=Countmax){
+                    Countmax--;
+                }
+                //
+                //
+                //
                 i++;
                 continue;
             }
@@ -337,6 +384,16 @@
             if(shouldExcludeApp)
             {
                 NSLog(@"Exclude App ID");
+                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+                //Also if numObjectsP<=5 we should Countmax--;
+                //An example is found when selecting PAID on A+ Kids
+                numObjectsP--;
+                if(numObjectsP<=Countmax){
+                    Countmax--;
+                }
+                //
+                //
+                //
                 i++;
                 continue;
             }
@@ -358,6 +415,16 @@
             if(!shouldIncludeApp)
             {
                 NSLog(@"Include App ID");
+                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
+                //Also if numObjectsP<=5 we should Countmax--;
+                //An example is found when selecting PAID on A+ Kids
+                numObjectsP--;
+                if(numObjectsP<=Countmax){
+                    Countmax--;
+                }
+                //
+                //
+                //
                 i++;
                 continue;
             }
