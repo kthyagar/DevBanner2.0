@@ -733,6 +733,13 @@
         
         [priceLabel setText:[NSString stringWithFormat:@"(%@)", stringFormatted]];
         
+        self.BannerStar1.hidden=NO;
+        self.BannerStar2.hidden=NO;
+        self.BannerStar3.hidden=NO;
+        self.BannerStar4.hidden=NO;
+        self.BannerStar5.hidden=NO;
+        priceLabel.hidden=NO;
+        
         if([bi.AppStars floatValue]==1){
             [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
             [self.BannerStar2 setImage:[UIImage imageNamed:@"emptystar.png"]];
@@ -768,7 +775,7 @@
             [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
             [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
             [self.BannerStar4 setImage:[UIImage imageNamed:@"halfstar.png"]];
-            [self.BannerStar5 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
         }else if([bi.AppStars floatValue]==4.0){
             [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
             [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
@@ -787,6 +794,13 @@
             [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
             [self.BannerStar4 setImage:[UIImage imageNamed:@"fullstar.png"]];
             [self.BannerStar5 setImage:[UIImage imageNamed:@"fullstar.png"]];
+        }else{
+            self.BannerStar1.hidden=YES;
+            self.BannerStar2.hidden=YES;
+            self.BannerStar3.hidden=YES;
+            self.BannerStar4.hidden=YES;
+            self.BannerStar5.hidden=YES;
+            priceLabel.hidden=YES;
         }
     }
     else
