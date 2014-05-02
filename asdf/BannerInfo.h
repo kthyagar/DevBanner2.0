@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSString *AppPrice;
 @property (nonatomic, strong) NSString *FormattedAppPrice;
 @property (nonatomic, strong) NSString *AppUrl;
+@property (nonatomic, strong) NSString *AppStars;
+@property (nonatomic, strong) NSString *AppStarsCount;
 @property (nonatomic, strong) UIImage *AppImage;
 @end

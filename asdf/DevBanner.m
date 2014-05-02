@@ -9,6 +9,11 @@
 #import "BannerInfo.h"
 
 @interface DevBanner()
+@property (nonatomic, strong) UIImageView *BannerStar1;
+@property (nonatomic, strong) UIImageView *BannerStar2;
+@property (nonatomic, strong) UIImageView *BannerStar3;
+@property (nonatomic, strong) UIImageView *BannerStar4;
+@property (nonatomic, strong) UIImageView *BannerStar5;
 @property (nonatomic, strong) UIImageView *BannerImageView;
 @property (nonatomic, strong) UIImageView *BannerBackgroundImageView;
 @property (nonatomic, strong) UIButton *BannerButton;
@@ -248,14 +253,16 @@
     int i = 1;
     int j = 1;
     self.Banners = [NSMutableArray array];
-    while(j <= Countmax||i <= Countmax)
+    while(j <= Countmax&&i <= numObjectsP)
     {
         BannerInfo *bi = [[BannerInfo alloc] init];
         bi.AppName = [jsonarray[i] objectForKey:@"trackName"];
         bi.AppPrice = [jsonarray[i] objectForKey:@"price"];
         bi.FormattedAppPrice = [jsonarray[i] objectForKey:@"formattedPrice"];
         bi.AppUrl= [jsonarray[i] objectForKey:@"trackId"];
-        
+        bi.AppStars = [jsonarray[i] objectForKey:@"averageUserRating"];
+        bi.AppStarsCount = [jsonarray[i] objectForKey:@"userRatingCount"];
+
         NSString *storelink = [NSString stringWithFormat:@"StoreLink%d", j];
         NSString *appname = [NSString stringWithFormat:@"AppName%d", j];
         NSString *appprice = [NSString stringWithFormat:@"AppPrice%d", j];
@@ -266,8 +273,7 @@
         NSString *features = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"features"]];
         NSString *appid = [NSString stringWithFormat:@"%@",[jsonarray[i] objectForKey:@"trackId"]];
         NSString *appNameValue = [jsonarray[i] objectForKey:@"trackName"];
-        NSString *priceValue =
-           [NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
+        NSString *priceValue =[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[i] objectForKey:@"formattedPrice"]];
         
         NSLog(@"I Am The Number %@",appKind);
         NSLog(@"I Am The Number %@",appNameValue);
@@ -276,16 +282,6 @@
         if([appKind isEqualToString:@"mac-software"])
         {
             NSLog(@"Mac App Skipped");
-            //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-            //Also if numObjectsP<=5 we should Countmax--;
-            //An example is found when selecting PAID on A+ Kids
-            numObjectsP--;
-            if(numObjectsP<=Countmax){
-                Countmax--;
-            }
-            //
-            //
-            //
             i++;
             continue;
         }
@@ -294,16 +290,6 @@
         if([rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"PAID"])
         {
             NSLog(@"Free App Skipped");
-            //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-            //Also if numObjectsP<=5 we should Countmax--;
-            //An example is found when selecting PAID on A+ Kids
-            numObjectsP--;
-            if(numObjectsP<=Countmax){
-                Countmax--;
-            }
-            //
-            //
-            //
             i++;
             continue;
         }
@@ -312,16 +298,6 @@
         if(![rawAppPrice isEqualToString:@"0"]&&[_AppType isEqualToString:@"FREE"])
         {
             NSLog(@"Paid App Skipped");
-            //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-            //Also if numObjectsP<=5 we should Countmax--;
-            //An example is found when selecting PAID on A+ Kids
-            numObjectsP--;
-            if(numObjectsP<=Countmax){
-                Countmax--;
-            }
-            //
-            //
-            //
             i++;
             continue;
         }
@@ -333,16 +309,6 @@
             if (range.location == NSNotFound)
             {
                 NSLog(@"iPad Only App Skipped");
-                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-                //Also if numObjectsP<=5 we should Countmax--;
-                //An example is found when selecting PAID on A+ Kids
-                numObjectsP--;
-                if(numObjectsP<=Countmax){
-                    Countmax--;
-                }
-                //
-                //
-                //
                 i++;
                 continue;
             }
@@ -354,16 +320,6 @@
             if (range1.location == NSNotFound&&range2.location == NSNotFound)
             {
                 NSLog(@"iPhone Only App Skipped");
-                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-                //Also if numObjectsP<=5 we should Countmax--;
-                //An example is found when selecting PAID on A+ Kids
-                numObjectsP--;
-                if(numObjectsP<=Countmax){
-                    Countmax--;
-                }
-                //
-                //
-                //
                 i++;
                 continue;
             }
@@ -385,16 +341,6 @@
             if(shouldExcludeApp)
             {
                 NSLog(@"Exclude App ID");
-                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-                //Also if numObjectsP<=5 we should Countmax--;
-                //An example is found when selecting PAID on A+ Kids
-                numObjectsP--;
-                if(numObjectsP<=Countmax){
-                    Countmax--;
-                }
-                //
-                //
-                //
                 i++;
                 continue;
             }
@@ -416,16 +362,6 @@
             if(!shouldIncludeApp)
             {
                 NSLog(@"Include App ID");
-                //I think we need numObjectsP--; because the possible number of banners has been subtracted by one.
-                //Also if numObjectsP<=5 we should Countmax--;
-                //An example is found when selecting PAID on A+ Kids
-                numObjectsP--;
-                if(numObjectsP<=Countmax){
-                    Countmax--;
-                }
-                //
-                //
-                //
                 i++;
                 continue;
             }
@@ -464,6 +400,13 @@
         
         i++;
         j++;
+    }
+    NSLog(@"hello");
+    NSLog(@"%d",i);
+    // All apps removed by filter
+    if(j==1){
+        NSLog(@"All apps removed by filter");
+        return;
     }
     
     // portrait and landscape background images
@@ -517,22 +460,14 @@
 {
     jsonarray = [[NSUserDefaults standardUserDefaults] objectForKey:@"DevBannerJSON"];
     NSString* publisherName= [jsonarray[0] objectForKey:@"artistName"];
-    NSString* appName= [jsonarray[1] objectForKey:@"trackName"];
-    NSString* price=[NSString stringWithFormat:@"%@ - On the App Store", [jsonarray[1] objectForKey:@"formattedPrice"]];
-    NSString* appId= [jsonarray[1] objectForKey:@"trackId"];
-    
-    NSLog(@"%@",appName);
+
     NSLog(@"%@",publisherName);
-    NSLog(@"%@",price);
-    NSLog(@"%@",appId);
-    
+
     appNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+8,-12, 180, BannerHeight)];
     publisherNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+15,0, 180, BannerHeight)];
     priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(BannerHeight+23,11, 180, BannerHeight)];
     
-    appNameLabel.text = appName;
     publisherNameLabel.text = publisherName;
-    priceLabel.text = price;
     
     [appNameLabel setTextColor:[UIColor whiteColor]];
     [publisherNameLabel setTextColor:[UIColor whiteColor]];
@@ -616,11 +551,24 @@
     self.BannerImageView = [[UIImageView alloc] init];
     self.BannerButton = [[UIButton alloc] init];
     
+    if([self.useStars isEqualToString:@"YES"]){
+        self.BannerStar1 = [[UIImageView alloc] init];
+        self.BannerStar2 = [[UIImageView alloc] init];
+        self.BannerStar3 = [[UIImageView alloc] init];
+        self.BannerStar4 = [[UIImageView alloc] init];
+        self.BannerStar5 = [[UIImageView alloc] init];
+    }
+    
     [self.BannerButton addTarget:self action:@selector(adClicked) forControlEvents:UIControlEventTouchUpInside];
     
     // setup hierarchies
     [self.ContainerView addSubview:self.BannerBackgroundImageView];
     [self.ContainerView addSubview:self.BannerImageView];
+    [self.ContainerView addSubview:self.BannerStar1];
+    [self.ContainerView addSubview:self.BannerStar2];
+    [self.ContainerView addSubview:self.BannerStar3];
+    [self.ContainerView addSubview:self.BannerStar4];
+    [self.ContainerView addSubview:self.BannerStar5];
     [self.ContainerView addSubview:self.BannerButton];
     [self.ContainerView addSubview:appNameLabel];
     [self.ContainerView addSubview:publisherNameLabel];
@@ -644,6 +592,12 @@
     int priceLabelYOffset;
     int cornerRadius;
     int labelWidth;
+    int star1;
+    int star2;
+    int star3;
+    int star4;
+    int star5;
+    int starsOffset;
     UIImage* imgToUse;
     
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -653,7 +607,6 @@
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
             BannerHeight=50;
-            //32   This is Landscape
         }
         else
         {
@@ -677,14 +630,18 @@
         priceLabelYOffset = PRICE_LABEL_PORTRAIT_Y_OFFSET;
         cornerRadius = PORTRAIT_VIEW_CORNER_RADIUS;
         labelWidth = PORTRAIT_LABEL_WIDTH;
+        star1 = STAR1_X;
+        star2 = STAR2_X;
+        star3 = STAR3_X;
+        star4 = STAR4_X;
+        star5 = STAR5_X;
+        starsOffset = PORTRAIT_STARS_Y;
     }
     else
     {
         NSLog(@"LAND");
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             BannerHeight=32;
-            
-            //32   This is Landscape
         }
         else
         {
@@ -708,6 +665,12 @@
         priceLabelYOffset = PRICE_LABEL_LANDSCAPE_Y_OFFSET;
         cornerRadius = LANDSCAPE_VIEW_CORNER_RADIUS;
         labelWidth = LANDSCAPE_LABEL_WIDTH;
+        star1 = STAR1_X;
+        star2 = STAR2_X;
+        star3 = STAR3_X;
+        star4 = STAR4_X;
+        star5 = STAR5_X;
+        starsOffset = LANDSCAPE_STARS_Y;
     }
     
     if(countState==1)
@@ -731,6 +694,16 @@
     CGRectMake(BannerHeight+publisherNameLabelXOffset, publisherNameLabelYOffset, labelWidth, BannerHeight);
     priceLabel.frame = CGRectMake(BannerHeight+priceLabelXOffset, priceLabelYOffset,labelWidth,BannerHeight);
     
+    if([self.useStars isEqualToString:@"YES"]){
+        // stars
+        self.BannerStar1.frame = CGRectMake(BannerHeight+star1, starsOffset,10,10);
+        self.BannerStar2.frame = CGRectMake(BannerHeight+star2, starsOffset,10,10);
+        self.BannerStar3.frame = CGRectMake(BannerHeight+star3, starsOffset,10,10);
+        self.BannerStar4.frame = CGRectMake(BannerHeight+star4, starsOffset,10,10);
+        self.BannerStar5.frame = CGRectMake(BannerHeight+star5, starsOffset,10,10);
+        priceLabel.frame = CGRectMake(BannerHeight+priceLabelXOffset*3.8, priceLabelYOffset,labelWidth,BannerHeight);
+    }
+    
     // actual banner image view
     self.BannerImageView.frame =
     CGRectMake(bannerX, bannerY, BannerHeight-bannerHorizontalMargin, BannerHeight-bannerVerticalMargin);
@@ -746,7 +719,80 @@
     BannerInfo *bi = [self.Banners objectAtIndex:Countad-1];
     
     appNameLabel.text = bi.AppName;
-    priceLabel.text = bi.FormattedAppPrice;
+    
+    
+    if([self.useStars isEqualToString:@"YES"]){
+        
+        // add comma to rate count (you lucky dog)
+        NSMutableString *stringFormatted = [NSMutableString stringWithFormat:@"%@",bi.AppStarsCount];
+        for(NSInteger i=[stringFormatted length]-3;i>0;i=i-3) {
+            if (i>0) {
+                [stringFormatted insertString: @"," atIndex: i];
+            }
+        }
+        
+        [priceLabel setText:[NSString stringWithFormat:@"(%@)", stringFormatted]];
+        
+        if([bi.AppStars floatValue]==1){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
+        }else if([bi.AppStars floatValue]==1.5){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"halfstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
+        }else if([bi.AppStars floatValue]==2.0){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
+        }else if([bi.AppStars floatValue]==2.5){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"halfstar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
+        }else if([bi.AppStars floatValue]==3.0){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"emptystar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
+        }else if([bi.AppStars floatValue]==3.5){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"halfstar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"fullstar.png"]];
+        }else if([bi.AppStars floatValue]==4.0){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"emptystar.png"]];
+        }else if([bi.AppStars floatValue]==4.5){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"halfstar.png"]];
+        }else if([bi.AppStars floatValue]==5.0){
+            [self.BannerStar1 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar2 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar3 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar4 setImage:[UIImage imageNamed:@"fullstar.png"]];
+            [self.BannerStar5 setImage:[UIImage imageNamed:@"fullstar.png"]];
+        }
+    }
+    else
+    {
+        priceLabel.text = bi.FormattedAppPrice;
+    }
     
     [self.BannerImageView setImage:bi.AppImage];
     
@@ -800,6 +846,12 @@ const int BANNER_SWAP_DELAY_IN_SECS = 3;
 
 const int PORTRAIT_BANNER_X = 2;
 const int PORTRAIT_BANNER_Y = 4;
+const int STAR1_X = 20;
+const int STAR2_X = 33;
+const int STAR3_X = 46;
+const int STAR4_X = 59;
+const int STAR5_X = 72;
+const int PORTRAIT_STARS_Y = 31;
 const int PORTRAIT_BANNER_HORIZONTAL_MARGIN = 6;
 const int PORTRAIT_BANNER_VERTICAL_MARGIN = 6;
 const int APP_NAME_LABEL_PORTRAIT_X_OFFSET = 8;
@@ -813,6 +865,7 @@ const int PORTRAIT_VIEW_CORNER_RADIUS = 11;
 
 const int LANDSCAPE_BANNER_X = 6;
 const int LANDSCAPE_BANNER_Y = 2;
+const int LANDSCAPE_STARS_Y = 22;
 const int LANDSCAPE_BANNER_HORIZONTAL_MARGIN = 4;
 const int LANDSCAPE_BANNER_VERTICAL_MARGIN = 4;
 const int APP_NAME_LABEL_LANDSCAPE_X_OFFSET = 18;

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5A145ED4191093C70071FB02 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A145ED3191093C70071FB02 /* star2.png */; };
 		5A2B2B4018FE1D8600CFC415 /* badge_appstore-lrg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B2B3F18FE1D8600CFC415 /* badge_appstore-lrg.png */; };
+		5A45318D1913F62C003A014F /* emptystar.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45318A1913F62C003A014F /* emptystar.png */; };
+		5A45318E1913F62C003A014F /* halfstar.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45318B1913F62C003A014F /* halfstar.png */; };
+		5A45318F1913F62C003A014F /* fullstar.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45318C1913F62C003A014F /* fullstar.png */; };
 		5A62284E18B68E4A00A7553A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A62284D18B68E4A00A7553A /* Foundation.framework */; };
 		5A62285018B68E4A00A7553A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A62284F18B68E4A00A7553A /* CoreGraphics.framework */; };
 		5A62285218B68E4A00A7553A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A62285118B68E4A00A7553A /* UIKit.framework */; };
@@ -47,6 +50,9 @@
 /* Begin PBXFileReference section */
 		5A145ED3191093C70071FB02 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
 		5A2B2B3F18FE1D8600CFC415 /* badge_appstore-lrg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge_appstore-lrg.png"; sourceTree = "<group>"; };
+		5A45318A1913F62C003A014F /* emptystar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptystar.png; sourceTree = "<group>"; };
+		5A45318B1913F62C003A014F /* halfstar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = halfstar.png; sourceTree = "<group>"; };
+		5A45318C1913F62C003A014F /* fullstar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullstar.png; sourceTree = "<group>"; };
 		5A62284A18B68E4A00A7553A /* asdf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = asdf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A62284D18B68E4A00A7553A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5A62284F18B68E4A00A7553A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -150,6 +156,9 @@
 				5A62286618B68E4A00A7553A /* MainViewController.m */,
 				5A62286818B68E4A00A7553A /* FlipsideViewController.h */,
 				5A62286918B68E4A00A7553A /* FlipsideViewController.m */,
+				5A45318A1913F62C003A014F /* emptystar.png */,
+				5A45318B1913F62C003A014F /* halfstar.png */,
+				5A45318C1913F62C003A014F /* fullstar.png */,
 				5A8CDFCF18FED3DC004D4C55 /* Icon.png */,
 				5A145ED3191093C70071FB02 /* star2.png */,
 				5A8CDFD118FF0C7D004D4C55 /* star1.png */,
@@ -273,12 +282,15 @@
 				5A8CDFD318FF0C7D004D4C55 /* star1.png in Resources */,
 				5A62286418B68E4A00A7553A /* Main_iPad.storyboard in Resources */,
 				5A62286C18B68E4A00A7553A /* Images.xcassets in Resources */,
+				5A45318E1913F62C003A014F /* halfstar.png in Resources */,
+				5A45318D1913F62C003A014F /* emptystar.png in Resources */,
 				5A145ED4191093C70071FB02 /* star2.png in Resources */,
 				5A2B2B4018FE1D8600CFC415 /* badge_appstore-lrg.png in Resources */,
 				5A62B31E18F606EE00477EA6 /* dsgn_93_default.menu.png in Resources */,
 				5A62286118B68E4A00A7553A /* Main_iPhone.storyboard in Resources */,
 				5A62B31F18F606EE00477EA6 /* stargold.png in Resources */,
 				5A62285818B68E4A00A7553A /* InfoPlist.strings in Resources */,
+				5A45318F1913F62C003A014F /* fullstar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

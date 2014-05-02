@@ -33,6 +33,7 @@
 - (void)hide;
 @property(nonatomic, copy) NSString *DeveloperId;
 @property(nonatomic, copy) NSString *AppType;
+@property(nonatomic, copy) NSString *useStars;
 @property(nonatomic, copy) NSArray *IncludeAppID;
 @property(nonatomic, copy) NSArray *ExcludeAppID;
 
@@ -55,9 +56,17 @@ extern const int PRICE_LABEL_PORTRAIT_X_OFFSET;
 extern const int PRICE_LABEL_PORTRAIT_Y_OFFSET;
 extern const int PORTRAIT_LABEL_WIDTH;
 extern const int PORTRAIT_VIEW_CORNER_RADIUS;
+extern const int STAR1_X;
+extern const int STAR2_X;
+extern const int STAR3_X;
+extern const int STAR4_X;
+extern const int STAR5_X;
+extern const int PORTRAIT_STARS_Y;
+
 
 extern const int LANDSCAPE_BANNER_X;
 extern const int LANDSCAPE_BANNER_Y;
+extern const int LANDSCAPE_STARS_Y;
 extern const int LANDSCAPE_BANNER_HORIZONTAL_MARGIN;
 extern const int LANDSCAPE_BANNER_VERTICAL_MARGIN;
 extern const int APP_NAME_LABEL_LANDSCAPE_X_OFFSET;
