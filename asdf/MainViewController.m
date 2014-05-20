@@ -93,19 +93,24 @@
     
     
     
-    rateme =[[DevRater alloc]initWithNibName:nil bundle:nil];
-    //rateme =[[DevRater alloc] initWithFrame:CGRectMake(0,0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     
     
     
-    [self.view addSubview:rateme.view];
-    
-    [rateme show];
     
     
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
+
+
+-(IBAction)ShowRateAlert{
+    rateme =[[DevRater alloc]initWithNibName:nil bundle:nil];
+    
+    [self.view addSubview:rateme.view];
+    
+    [rateme show2];
+}
+
 
 
 

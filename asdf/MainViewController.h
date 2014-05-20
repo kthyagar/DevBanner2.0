@@ -17,6 +17,7 @@
 }
 -(IBAction)loadbanner;
 -(IBAction)resume;
+-(IBAction)ShowRateAlert;
 -(IBAction)hide;
 -(IBAction)resetDict;
 @property (nonatomic, strong) UIView* customView;
