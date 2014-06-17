@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface DevRater : UIViewController<UIAlertViewDelegate>{
+
+
+
+@interface DevRater : UIViewController<UIAlertViewDelegate, MFMailComposeViewControllerDelegate>{
     NSUserDefaults *defaults;
     UILabel *label1a;
     UILabel *label2a;
@@ -55,5 +59,9 @@
 
 @property (nonatomic, copy) NSString *applicationName;
 @property (nonatomic, copy) NSString *applicationIcon;
+
+
+
+
 
 @end

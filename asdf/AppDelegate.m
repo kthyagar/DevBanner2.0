@@ -7,8 +7,23 @@
 //
 
 #import "AppDelegate.h"
+//#import "iRate.h"
+
 
 @implementation AppDelegate
+
+//+ (void)initialize
+//{
+//    //configure iRate
+//    //    [iRate sharedInstance].appStoreID = 355313284; // Replace this
+//    //    [iRate sharedInstance].applicationBundleID = @"com.MadCalfApps.RockRadio";
+//    //    [iRate sharedInstance].previewMode=YES;
+//    
+//    [iRate sharedInstance].daysUntilPrompt = 10;
+//    [iRate sharedInstance].usesUntilPrompt = 10;
+//    
+//    
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

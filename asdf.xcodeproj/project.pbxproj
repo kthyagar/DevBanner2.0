@@ -36,6 +36,9 @@
 		5A8CDFD018FED3DC004D4C55 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CDFCF18FED3DC004D4C55 /* Icon.png */; };
 		5AB307491921562700CA28F5 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AB307471921562700CA28F5 /* star2.png */; };
 		5AD9EF601922E70E006E63D6 /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9EF5F1922E70E006E63D6 /* CustomAlertView.m */; };
+		5AFE93EB1950CFAB00173AC1 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AFE93E81950CFAB00173AC1 /* iRate.bundle */; };
+		5AFE93EC1950CFAB00173AC1 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE93EA1950CFAB00173AC1 /* iRate.m */; };
+		5AFE93EE1950D0A100173AC1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFE93ED1950D0A100173AC1 /* MessageUI.framework */; };
 		FC4EAD53190F2C29000C0195 /* BannerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4EAD52190F2C29000C0195 /* BannerInfo.m */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +91,10 @@
 		5AB307471921562700CA28F5 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
 		5AD9EF5E1922E6A4006E63D6 /* CustomAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
 		5AD9EF5F1922E70E006E63D6 /* CustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertView.m; sourceTree = "<group>"; };
+		5AFE93E81950CFAB00173AC1 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
+		5AFE93E91950CFAB00173AC1 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		5AFE93EA1950CFAB00173AC1 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		5AFE93ED1950D0A100173AC1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FC4EAD51190F2C29000C0195 /* BannerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerInfo.h; sourceTree = "<group>"; };
 		FC4EAD52190F2C29000C0195 /* BannerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +106,7 @@
 			files = (
 				5A62285018B68E4A00A7553A /* CoreGraphics.framework in Frameworks */,
 				5A62285218B68E4A00A7553A /* UIKit.framework in Frameworks */,
+				5AFE93EE1950D0A100173AC1 /* MessageUI.framework in Frameworks */,
 				5A62284E18B68E4A00A7553A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +146,7 @@
 		5A62284C18B68E4A00A7553A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5AFE93ED1950D0A100173AC1 /* MessageUI.framework */,
 				5A62284D18B68E4A00A7553A /* Foundation.framework */,
 				5A62284F18B68E4A00A7553A /* CoreGraphics.framework */,
 				5A62285118B68E4A00A7553A /* UIKit.framework */,
@@ -149,6 +158,9 @@
 		5A62285318B68E4A00A7553A /* asdf */ = {
 			isa = PBXGroup;
 			children = (
+				5AFE93E81950CFAB00173AC1 /* iRate.bundle */,
+				5AFE93E91950CFAB00173AC1 /* iRate.h */,
+				5AFE93EA1950CFAB00173AC1 /* iRate.m */,
 				5A62285C18B68E4A00A7553A /* AppDelegate.h */,
 				5AD9EF5E1922E6A4006E63D6 /* CustomAlertView.h */,
 				5AD9EF5F1922E70E006E63D6 /* CustomAlertView.m */,
@@ -294,6 +306,7 @@
 				5A7557FA192D1D430057BE09 /* star3.png in Resources */,
 				5A45318D1913F62C003A014F /* emptystar.png in Resources */,
 				5A2B2B4018FE1D8600CFC415 /* badge_appstore-lrg.png in Resources */,
+				5AFE93EB1950CFAB00173AC1 /* iRate.bundle in Resources */,
 				5AB307491921562700CA28F5 /* star2.png in Resources */,
 				5A62B31E18F606EE00477EA6 /* dsgn_93_default.menu.png in Resources */,
 				5A62286118B68E4A00A7553A /* Main_iPhone.storyboard in Resources */,
@@ -318,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AFE93EC1950CFAB00173AC1 /* iRate.m in Sources */,
 				FC4EAD53190F2C29000C0195 /* BannerInfo.m in Sources */,
 				5A8CDFCE18FECC29004D4C55 /* DevRater.m in Sources */,
 				5AD9EF601922E70E006E63D6 /* CustomAlertView.m in Sources */,

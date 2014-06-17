@@ -195,118 +195,71 @@
     
     
     
-//    CAKeyframeAnimation *animation = [CAKeyframeAnimation
-//                                      animationWithKeyPath:@"transform"];
-//    
-//    CATransform3D scale1 = CATransform3DMakeScale(0.5, 0.5, 1);
-//    CATransform3D scale2 = CATransform3DMakeScale(1.1, 1.1, 1);
-//    CATransform3D scale3 = CATransform3DMakeScale(0.9, 0.9, 1);
-//    CATransform3D scale4 = CATransform3DMakeScale(1.0, 1.0, 1);
-//    
-//    NSArray *frameValues = [NSArray arrayWithObjects:
-//                            [NSValue valueWithCATransform3D:scale1],
-//                            [NSValue valueWithCATransform3D:scale2],
-//                            [NSValue valueWithCATransform3D:scale3],
-//                            [NSValue valueWithCATransform3D:scale4],
-//                            nil];
-//    [animation setValues:frameValues];
-//    
-//    NSArray *frameTimes = [NSArray arrayWithObjects:
-//                           [NSNumber numberWithFloat:0.0],
-//                           [NSNumber numberWithFloat:0.5],
-//                           [NSNumber numberWithFloat:0.9],
-//                           [NSNumber numberWithFloat:1.0],
-//                           nil];
-//    [animation setKeyTimes:frameTimes];
-//    
-//    animation.fillMode = kCAFillModeForwards;
-//    animation.removedOnCompletion = NO;
-//    animation.duration = .2;
-//    
-//    [someScrollView2.layer addAnimation:animation forKey:@"popup"];
-    
-    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:0];
-//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-//                           forView:star1
-//                             cache:YES];
-//    star1.transform = CGAffineTransformMakeScale(1.5,1.5);
-//    
-//    [UIView commitAnimations];
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:.1];
-//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-//                           forView:star2
-//                             cache:YES];
-//    star2.transform = CGAffineTransformMakeScale(1.5,1.5);
-//    [UIView commitAnimations];
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:.2];
-//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-//                           forView:star3
-//                             cache:YES];
-//    star3.transform = CGAffineTransformMakeScale(1.5,1.5);
-//    star1.transform = CGAffineTransformMakeScale(1,1);
-//    
-//    [UIView commitAnimations];
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:.3];
-//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-//                           forView:star4
-//                             cache:YES];
-//    star4.transform = CGAffineTransformMakeScale(1.5,1.5);
-//    star2.transform = CGAffineTransformMakeScale(1,1);
-//    
-//    [UIView commitAnimations];
-//    
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:.4];
-//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
-//                           forView:star5
-//                             cache:YES];
-//    star5.transform = CGAffineTransformMakeScale(1.5,1.5);
-//    star3.transform = CGAffineTransformMakeScale(1,1);
-//    
-//    [UIView commitAnimations];
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:.5];
-//    star4.transform = CGAffineTransformMakeScale(1,1);
-//    
-//    [UIView commitAnimations];
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:.5];
-//    [UIView setAnimationDelay:.6];
-//    star5.transform = CGAffineTransformMakeScale(1,1);
-//    
-//    [UIView commitAnimations];
-    
-    
-    
     
 }
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error {
+	[self becomeFirstResponder];
 
+	[self dismissViewControllerAnimated:NO  completion:nil];
+    [self performSelector:@selector(removealert1) withObject:nil afterDelay:0.2f];
+}
+
+- (void)removealert1{
+
+    someScrollView2.layer.transform = CATransform3DMakeScale(1.0, 1.0, 1.0);
+    
+    [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
+					 animations:^{
+                         [ImageView1 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f]];
+                         someScrollView2.layer.opacity = .0f;
+                         someScrollView2.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1.3);
+					 }
+					 completion:NULL
+     ];
+    [self performSelector:@selector(removealert2) withObject:nil afterDelay:0.2f];
+
+}
+- (void)removealert2{
+    [self.view removeFromSuperview];
+}
 
 - (void)alert1press{
-    NSLog(@"Open App Store");
-    [self.view removeFromSuperview];
+    
+    if(CountStar<3){
+        NSLog(@"Support Email");
+        MFMailComposeViewController *picker =
+        [[MFMailComposeViewController alloc] init];
+        picker.mailComposeDelegate = self;
+        [picker setSubject:@"App Support"];
+    
+        NSString *emailBody = @"Enter Text Here";  // optional
+        [picker setMessageBody:emailBody isHTML:YES];
+        [self presentViewController:picker animated:YES  completion:nil];
+
+    }else{
+        NSLog(@"Open App Store");
+
+        
+        //SHOW RATE IN STORE
+        
+        
+        
+        [self removealert1];
+        
+    }
+    
 }
 - (void)alert2press{
     NSLog(@"Rate Alerts Disabled");
-    [self.view removeFromSuperview];
+    
+    [self removealert1];
 }
 - (void)alert3press{
     NSLog(@"Reset Timer");
-    [self.view removeFromSuperview];
+    
+    [self removealert1];
 }
 
 
@@ -623,5 +576,7 @@
  // Drawing code
  }
  */
+
+
 
 @end
